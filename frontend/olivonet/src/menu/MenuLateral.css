@@ -1,0 +1,137 @@
+@import '../index.css';
+
+.menu-lateral {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: var(--color-fondo-menu);
+  border-right: 1px solid var(--color-borde-menu);
+  box-shadow: 2px 0 8px var(--color-sombra-menu);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.menu-lateral.cerrado {
+  transform: translateX(-100%);
+}
+
+.menu-lateral.abierto {
+  transform: translateX(0);
+}
+
+.cabecera-menu-lateral {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  height: 70px;
+}
+
+.logo-menu {
+  height: 100%;
+  margin-right: 20px;
+  object-fit: contain;
+  flex: 1;
+}
+
+.barra-vertical {
+  width: 1px;
+  height: 40px;
+  background-color: var(--color-separador);
+  margin: 0 10px;
+}
+
+.boton-toggle-flotante {
+  position: fixed;
+  top: 20px;
+  left: 15px;
+  z-index: 1100;
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  border: none;
+  font-size: 20px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: left 0.3s ease-in-out;
+}
+
+.boton-toggle-flotante.abierto {
+  left: 210px; /* Justo a la derecha del menú */
+}
+
+.boton-toggle-flotante:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.separador-horizontal {
+  border: none;
+  height: 1px;
+  background-color: var(--color-separador);
+  margin: 0 12px 10px;
+}
+
+.contenedor-botones {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  overflow-y: auto;
+}
+
+/* Botones de abajo */
+
+.menu-abajo {
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  background-color: var(--color-fondo-menu);
+  border-top: 1px solid var(--color-borde-menu); /* Se puede eliminar */
+}
+
+.boton-simple {
+  background-color: var(--color-priamrio);
+  border: none;
+  color: var(--color-blanco);
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.boton-simple:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.boton-simple.cuadrado {
+  width: 45px;
+  height: 45px;
+}
+
+.boton-simple img {
+  margin-top: 11%;
+  margin-right: 8%;
+  width: 25px;
+  height: 25px;
+  transition: filter 0.2s ease-in-out;
+}
+
+/* Botón específico de cerrar sesión */
+.boton-simple.cerrar-sesion {
+  background-color: var(--color-transparente);
+}
+
+.boton-simple.cerrar-sesion:hover {
+  background-color: var(--color-warning);
+}
+
+.boton-simple.cerrar-sesion:hover img {
+  filter: brightness(0) invert(1); /* convierte la imagen a blanco */
+}

@@ -1,0 +1,174 @@
+@import '../index.css';
+
+/* Variables de color */
+:root {
+  --color-verde: #388e3c;
+  --color-verde-hover: #2e7d32;
+  --color-verde-borde: #4caf50;
+  --color-purpura: #933c8d;
+  --color-texto: #000000;
+  --color-gris: #888888;
+}
+
+/* Estructura general
+.pagina-login {
+  display: flex;
+  height: 100vh;
+  background-color: var(--color-fondo);
+}
+  */
+
+.pagina-login {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+}
+
+
+/* Lado izquierdo: formulario */
+.cuadro-login {
+  height: 35em;
+  width: 20%;
+  min-width: 360px;
+  background-color: var(--color-blanco);
+  border-radius: 45px;
+  padding: 1.5% 3%;
+  margin: auto 0 auto 5%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+
+}
+
+.titulo-login {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.forgot-password {
+  font-size: 1.1em;
+  color: var(--color-gris);
+  text-decoration: underline;
+  margin: 5px 0 20px;
+}
+
+.boton-login {
+  align-self: center;
+  width: 90%;
+  height: 55px;
+  background-color: var(--color-verde);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+
+.boton-login:hover {
+  background-color: var(--color-verde-hover);
+}
+
+.texto {
+  position: relative;
+  top: -10px;
+  text-align: center;
+  font-size: 1em;
+}
+
+.crear-cuenta {
+  align-self: center;
+  width: auto;
+  background-color: var(--color-secundario);
+  color: var(--color-blanco);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-weight: Thin;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.crear-cuenta:hover {
+  opacity: 0.9;
+}
+
+/* Lado derecho: mensaje y logo */
+.fondo-login {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: var(--color-blanco);
+  text-align: center;
+}
+
+.fondo-login h1 {
+  color: white;
+  font-size: 3em;
+  font-weight: bold;
+  text-align:left;
+  margin-left: 10%;
+  line-height: 110%;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  user-select: none;
+
+}
+
+/* Logo */
+.logo {
+  position: fixed; /* mueve todo el bloque */
+  height: 110px;
+  width: 110px;
+  top: 20px;
+  right: 30px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,   /* centro más oscuro */
+    rgba(255, 255, 255, 0.5) 90%,  /* degradado hacia el borde */
+    rgba(255, 255, 255, 0) 100%  /* totalmente transparente al final */
+  );
+  border-radius: 500px;
+  padding: 10px;
+  display: inline-block;
+  z-index: 2; /* asegúrate de que esté por delante del video */
+}
+
+@media (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+}
+
+.fondo-login img {
+  height: 100px;
+}
+
+/* Video de fondo */
+.video-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1; /* Para que quede detrás del contenido */
+  filter: grayscale(45%) brightness(60%);
+
+}
+
+/* Mensaje de error login */
+.mensaje-error {
+  margin-left: 2px;
+  font-size: 1em;
+  font-weight: bold;
+  min-height: 1.5em; /* reserva espacio */
+  color: var(--color-warning);
+  margin-top: 0.5em;
+}
+

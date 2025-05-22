@@ -1,0 +1,20 @@
+.formulario {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.formulario label {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.formulario input {
+  font-size: 1.2em;
+  border: 2px solid var(--color-verde-borde);
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+}

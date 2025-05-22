@@ -1,0 +1,17 @@
+# node_modules de backend y frontend
+/backend/node_modules/
+/frontend/olivonet/node_modules/
+
+# Iniciador
+start.bat
+
+# Backend env
+/backend/.env
+**/.env
+
+# Archivos temporales
+.DS_Store
+Thumbs.db
+
+# Video de fondo
+/frontend/olivonet/src/assets/video_fondo.mp4
