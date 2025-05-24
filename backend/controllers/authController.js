@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
         correo,
         dni,
         username,
-        fechaNacimiento,
+        fechaNacimiento: new Date(fechaNacimiento),
         password: hashedPassword
       },
     });

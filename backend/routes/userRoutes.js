@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const { obtenerUsuarios, borrarUsuario, obtenerUsuario, actualizarPerfil } = require('../controllers/userController');
+const { borrarUsuario, obtenerUsuario, actualizarPerfil } = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 router.use(authMiddleware);
 
-router.get('/usuarios', obtenerUsuarios);
+//router.get('/usuarios', obtenerUsuarios);
 
-router.get('/usuarios/:id', authMiddleware, obtenerUsuario);
+router.get('/mi-perfil', obtenerUsuario);
 
-router.delete('/usuarios/:id', borrarUsuario);
+router.delete('/eliminar-mi-cuenta', borrarUsuario);
 
 router.put('/actualizarUsuario', authMiddleware, actualizarPerfil);
 

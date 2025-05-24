@@ -7,12 +7,16 @@ import Espacio from "../extra/Espacio";
 
 import logo from "../assets/olivonet-icon3.png";
 import videoFondo from "../assets/video_fondo.mp4";
+import RegistroModal from "../registro/RegistroModal";
+
 
 const Login = ({ onLogin }) => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [mostrarModal, setMostrarModal] = useState(false);
+
 
   const handleLogin = async () => {
     if (!correo.trim() || !password.trim()) {
@@ -84,7 +88,8 @@ const Login = ({ onLogin }) => {
         <p className="texto">o crea una cuenta nueva</p>
 
         <Espacio altura="4%" />
-        <button className="crear-cuenta">Crear cuenta</button>
+        <button className="crear-cuenta" onClick={() => setMostrarModal(true)}>Crear cuenta</button>
+
         <Espacio altura="2%" />
       </div>
 
@@ -94,6 +99,7 @@ const Login = ({ onLogin }) => {
           <img src={logo} alt="OlivoNET" />
         </div>
       </div>
+      <RegistroModal visible={mostrarModal} onClose={() => setMostrarModal(false)} />
     </div>
   );
 };

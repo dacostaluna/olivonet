@@ -13,12 +13,33 @@ model Agricultor {
   apellidos         String
   correo            String      @unique
   dni               String
-  username          String
+  username          String      @unique
   fechaNacimiento   DateTime
   password          String
-  propiedades       Propiedad[]? // Un agricultor puede tener múltiples propiedades
+  propiedades       Propiedad[] // Un agricultor puede tener múltiples propiedades
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
+}
+
+model Cooperativa {
+  id              Int          @id @default(autoincrement())
+  nombre          String
+  correo          String       @unique
+  password        String
+  direccion       String
+  nif             String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model Administrador {
+  id              Int          @id @default(autoincrement())
+  correo          String       @unique
+  username        String       @unique
+  password        String
+  nombre          String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }
 
 model Propiedad {

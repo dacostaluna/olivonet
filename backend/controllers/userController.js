@@ -6,6 +6,7 @@ const validarCorreo = (correo) => {
   return regex.test(correo);
 };
 
+/* Controlador reservado para administrador
 const obtenerUsuarios = async (req, res) => {
   try {
     const users = await prisma.agricultor.findMany({
@@ -24,27 +25,39 @@ const obtenerUsuarios = async (req, res) => {
   }
 };
 
+*/
+
 const obtenerUsuario = async (req, res) => {
   try {
-    const { id } = req.params;
-
+    const userId = req.userId;
+    
     const user = await prisma.agricultor.findUnique({
-        select: {
-            nombre: true,
-            correo: true,
-            id: true
-          },
-        where: { 
-            id : parseInt(id)
-         }
+      select: {
+        id: true,
+        apellidos: true,
+        nombre: true,
+        correo: true,
+        username: true,
+        dni: true,
+        fechaNacimiento: true,
+        createdAt: true
+      },
+      where: {
+        id: userId,
+      },
     });
-    res.json(user);
 
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    res.json(user);
   } catch (error) {
-    console.error("Error showing user:", error);
-    res.status(500).json({ error: "Error showing user" });
+    console.error("Error mostrando usuario:", error);
+    res.status(500).json({ error: "Error mostrando usuario" });
   }
 };
+
 
 const actualizarPerfil = async (req, res) => {
   const userId = req.userId;
@@ -110,25 +123,26 @@ const actualizarPerfil = async (req, res) => {
 
 const borrarUsuario = async (req, res) => {
   try {
-    const { id } = req.params;
+    const userId = req.userId;
 
     const user = await prisma.agricultor.delete({
       where: {
-        id: parseInt(id), // Aseguramos que sea número si el ID es numérico
+        id: userId,
       },
     });
 
     res.json({ message: "Usuario eliminado correctamente", user });
   } catch (error) {
-    console.error("Error deleting user:", error);
-    res.status(500).json({ error: "Error deleting user" });
+    console.error("Error eliminando usuario:", error);
+    res.status(500).json({ error: "Error eliminando usuario" });
   }
 };
 
 
 
+
 module.exports = {
-  obtenerUsuarios,
+  //obtenerUsuarios,
   obtenerUsuario,
   borrarUsuario,
   actualizarPerfil

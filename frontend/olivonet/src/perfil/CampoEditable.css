@@ -1,0 +1,60 @@
+.campo-editable {
+  margin-bottom: 0.8vw;
+}
+
+.campo-titulo {
+  display: block;
+  font-size: 1vw;
+  color: var(--color-primario);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.campo-valor {
+  position: relative;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.campo-valor.editable {
+  background-color: white;
+}
+
+.campo-valor.no-editable {
+  background-color: #f3f4f6;
+}
+
+.campo-valor.editable:hover {
+  border-color: var(--color-primario)
+}
+
+.campo-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+}
+
+.campo-texto {
+  font-size: 1.1rem;
+}
+
+.icono-lapiz {
+  position: absolute;
+  height: 1.4vw;
+  width: 1.4vw;
+  right: 1.2rem;
+  bottom: 0.4rem;
+  color: var(--color-primario);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.campo-valor.editable:hover .icono-lapiz {
+  opacity: 1;
+}

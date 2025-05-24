@@ -1,0 +1,87 @@
+.btn-eliminar-cuenta {
+  border: 2px solid red;
+  color: red;
+  background-color: transparent;
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  font-size: 1vw;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s ease;
+  width: 15%;
+}
+
+.btn-eliminar-cuenta:hover {
+  background-color: red;
+  color: white;
+}
+
+.btn-confirmar-eliminacion {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: 0.3s ease;
+}
+
+.btn-confirmar-eliminacion:hover {
+  background-color: darkred;
+}
+
+.titulo.rojo {
+  color: red;
+}
+
+.cerrar-x-borrar-cuenta {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.modal-overlay-borrar-cuenta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-contenido-borrar-cuenta {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  animation: aparecer 0.3s ease forwards;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.boton-centro {
+  display: flex;
+  justify-content: center;
+}

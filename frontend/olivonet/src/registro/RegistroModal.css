@@ -1,0 +1,119 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-contenido {
+  background: white;
+  padding: 5rem;
+  border-radius: 40px;
+  width: 60%;
+  max-width: 70%;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(30px);
+  opacity: 0;
+  animation: subirFade 0.4s ease forwards;
+}
+
+/* Ya tienes esta seguramente */
+.animar-modal {
+  animation: aparecer 0.3s ease-out forwards;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Nueva animación para cerrar */
+.desaparecer-modal {
+  animation: desaparecer 0.3s ease-in forwards;
+}
+
+@keyframes desaparecer {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
+
+.titulo {
+  margin-top: -1.2rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.cerrar-x {
+  position: absolute;
+  top: 2vw;
+  right: 2vw;
+  background: none;
+  border: none;
+  font-size: 3rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.columnas-formulario {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.columna {
+  flex: 1;
+  min-width: 250px;
+}
+
+.boton-centro {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  width: 38%;
+  margin-top: 2rem;
+}
+
+.boton-login{
+    border-radius: 50px;
+}
+
+
+.mensaje-feedback {
+  margin-top: 1.3vw;
+  font-size: 1.1vw;
+  min-height: 1.5em;
+  transition: color 0.3s ease;
+}
+
+.mensaje-feedback.error {
+  color: red;
+}
+
+.mensaje-feedback.success {
+  color: green;
+}
+
+
+.formulario + .formulario {
+  margin-top: 5px; /* o el valor que prefieras */
+}

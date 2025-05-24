@@ -1,0 +1,33 @@
+/* App.css */
+.contenedor-app {
+  display: flex;
+  flex-direction: row;
+  padding: 40px;
+  justify-self: center;
+  box-sizing: border-box;
+  width: 90%;
+}
+
+.contenido-principal {
+  flex-direction: row;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  flex-grow: 1;
+  transition: margin-left 0.3s ease-in-out;
+  padding: 40px 60px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Si el menú está abierto */
+.contenido-con-menu {
+  margin-left: 260px; /* Igual al ancho del menú lateral */
+}
+
+/* Si el menú está cerrado */
+.contenido-sin-menu {
+  margin-left: 0;
+}
