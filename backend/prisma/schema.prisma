@@ -16,7 +16,8 @@ model Agricultor {
   username          String      @unique
   fechaNacimiento   DateTime
   password          String
-  propiedades       Propiedad[] // Un agricultor puede tener múltiples propiedades
+  propiedades       Propiedad[] // Un agricultor puede tener múltiples 
+  fotoPerfil        String?     // URL de foto de perfil
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
 }
@@ -44,7 +45,12 @@ model Administrador {
 
 model Propiedad {
     id              Int     @id @default(autoincrement())
+    nombre          String
+    descripcion     String
     tipo            String
+    superficie      Int
+    coordenadas     String
+    direccion       String
     idPropietario   Int
     propietario     Agricultor    @relation(fields: [idPropietario], references: [id])
 }

@@ -1,0 +1,105 @@
+.modal-crearprop-fondo {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro translúcido */
+  z-index: 4000;
+}
+
+.modal-crearprop-contenido {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 60vw;
+  max-height: 38vw;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  z-index: 4001;
+}
+
+.modal-crearprop-cerrar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 35px;
+  font-weight: bold;
+  color: #444;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 102;
+}
+
+.modal-crearprop-titulo {
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.modal-crearprop-formulario {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.modal-crearprop-columna {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.modal-crearprop-confirmar {
+  display: block;
+  margin: 16px auto 0 auto;
+  border: none;
+  padding: 10px 24px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-crearprop-confirmar:hover {
+  background-color: var(--color-primario-hover);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.modal-crearprop-contenido {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.modal-crearprop-contenido.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+

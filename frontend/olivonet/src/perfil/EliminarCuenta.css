@@ -4,11 +4,11 @@
   background-color: transparent;
   padding: 0.6rem 1.2rem;
   font-weight: bold;
-  font-size: 1vw;
+  font-size: 100%;
   cursor: pointer;
   border-radius: 8px;
   transition: 0.3s ease;
-  width: 15%;
+  width: 11rem;
 }
 
 .btn-eliminar-cuenta:hover {

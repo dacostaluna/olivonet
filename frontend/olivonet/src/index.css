@@ -10,6 +10,9 @@
   --color-primario: #6a8e23;
   --color-primario-hover: #58741b;
 
+  --color-primario-trans: #6a8e23c5;
+  --color-primario-hover-trans: #58741be3;
+
   --color-secundario: #933c8d;
   --color-secundario-hover: #7a2b6e;
 
@@ -18,15 +21,28 @@
   --color-warning: #d32f2f;
 
   --color-blanco: white;
+  --color-gris: #6b7280;
+  --color-gris-claro: #d1d5db;
   --color-transparente: transparent;
 
 }
 
 body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+ h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+button{
+  background-color: var(--color-primario);
+  color: white;
 
 }
+
+
 
 /*
 :root {
