@@ -11,16 +11,22 @@ const Formulario = ({
   width,
   height,
   esArea = false,
-  opciones = [], // para select
-  disabled = false, // para controlar si se desactiva
+  opciones = [],
+  disabled = false,
 }) => {
   const id = texto.toLowerCase().replace(/\s+/g, '-');
   const style = {};
   if (width) style.width = width;
   if (height) style.height = height;
 
+  const esCheckbox = type === 'checkbox';
+  const labelClass = esCheckbox ? 'formulario-horizontal' : '';
+
+  // Elimina placeholder si está desactivado
+  const inputPlaceholder = disabled ? '' : placeholder;
+
   return (
-    <div className="formulario">
+    <div className={`formulario ${labelClass} ${disabled ? 'formulario-disabled' : ''}`}>
       <label htmlFor={id}>{texto}</label>
 
       {type === 'select' ? (
@@ -40,6 +46,7 @@ const Formulario = ({
       ) : type === 'checkbox' ? (
         <input
           type="checkbox"
+          className='form-check-input'
           id={id}
           checked={value}
           onChange={onChange}
@@ -49,18 +56,19 @@ const Formulario = ({
         <textarea
           id={id}
           className="form-control"
-          placeholder={placeholder}
+          placeholder={inputPlaceholder}
           value={value}
           onChange={onChange}
           style={style}
           rows={height ? undefined : 4}
+          disabled={disabled}
         />
       ) : (
         <input
           type={type}
           id={id}
           className={`form-control${type === 'date' ? ' date-picker' : ''}`}
-          placeholder={placeholder}
+          placeholder={inputPlaceholder}
           value={value}
           onChange={onChange}
           style={style}

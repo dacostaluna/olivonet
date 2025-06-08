@@ -5,7 +5,7 @@
 }
 
 .perfil-titulo {
-  font-size: 1.8vw;
+  font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
@@ -36,7 +36,7 @@
 }
 
 .perfil-informacion {
-  font-size: 1vw;
+  font-size: 1rem;
 }
 /*
 .mensaje {

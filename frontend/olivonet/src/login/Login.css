@@ -56,7 +56,7 @@
 .boton-login {
   align-self: center;
   width: 90%;
-  height: 55px;
+  height: 5rem;
   background-color: var(--color-verde);
   color: var(--color-blanco);
   border: none;

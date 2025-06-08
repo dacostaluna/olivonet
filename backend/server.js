@@ -18,6 +18,9 @@ app.use('/admin', adminRoutes);
 const userRoutes = require('./routes/userRoutes');
 app.use('/', userRoutes);
 
+app.use("/api/clima", require("./routes/climaRoutes"));
+
+
 
 
 

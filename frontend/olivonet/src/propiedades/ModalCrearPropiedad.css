@@ -5,20 +5,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro translúcido */
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 4000;
 }
 
 .modal-crearprop-contenido {
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 40px;
   border-radius: 12px;
   width: 90%;
-  max-width: 60vw;
-  max-height: 38vw;
+  max-width: 1000px;
+  max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden; /* Sin scroll horizontal */
   position: relative;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease forwards;
   z-index: 4001;
 }
 
@@ -33,7 +35,6 @@
   color: #444;
   cursor: pointer;
   transition: color 0.2s ease;
-  z-index: 102;
 }
 
 .modal-crearprop-titulo {
@@ -45,32 +46,58 @@
 
 .modal-crearprop-formulario {
   display: flex;
-  gap: 24px;
   flex-wrap: wrap;
+  gap: 24px;
   margin-bottom: 16px;
 }
 
 .modal-crearprop-columna {
+  flex: 1 1 45%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  flex: 1;
+  gap: 8px;
+  min-width: 300px;
+}
+
+/* Ajustes para que las subcolumnas estén alineadas y no hagan scroll horizontal */
+
+.olivos-superficie-contenedor,
+.variedad-edad-contenedor {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: nowrap; /* NO hacer wrap, siempre en línea */
+}
+
+.olivos-superficie-contenedor > *,
+.variedad-edad-contenedor > * {
+  flex: 1 1 50%;  /* Cada input ocupa la mitad del espacio */
+  min-width: 0;   /* Evita overflow horizontal */
+}
+
+.riego-contenedor {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: wrap; /* Este puede hacer wrap */
 }
 
 .modal-crearprop-confirmar {
   display: block;
-  margin: 16px auto 0 auto;
+  margin: 24px auto 0 auto;
   border: none;
   padding: 10px 24px;
   font-weight: 700;
   font-size: 1rem;
   border-radius: 8px;
+  background-color: var(--color-primario, #4caf50);
+  color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .modal-crearprop-confirmar:hover {
-  background-color: var(--color-primario-hover);
+  background-color: var(--color-primario-hover, #43a047);
 }
 
 @keyframes fadeIn {
@@ -95,11 +122,6 @@
   }
 }
 
-.modal-crearprop-contenido {
-  animation: fadeIn 0.3s ease forwards;
-}
-
 .modal-crearprop-contenido.fade-out {
   animation: fadeOut 0.3s ease forwards;
 }
-

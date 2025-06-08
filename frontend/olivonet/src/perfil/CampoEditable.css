@@ -4,7 +4,7 @@
 
 .campo-titulo {
   display: block;
-  font-size: 1vw;
+  font-size: 1.2em;
   color: var(--color-primario);
   font-weight: 700;
   margin-bottom: 0.25rem;

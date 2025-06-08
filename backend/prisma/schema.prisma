@@ -46,11 +46,21 @@ model Administrador {
 model Propiedad {
     id              Int     @id @default(autoincrement())
     nombre          String
-    descripcion     String
-    tipo            String
     superficie      Int
-    coordenadas     String
+    numOlivos       Int
+    
+    descripcion     String?
+    coordenadas     String?
     direccion       String
+    color           String?
+    tieneRiego      Boolean?
+    numOlivosRiego  Int?
+    variedad        String?
+    edadOlivos      Int?
+
     idPropietario   Int
     propietario     Agricultor    @relation(fields: [idPropietario], references: [id])
+
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
 }

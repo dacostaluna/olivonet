@@ -1,9 +1,12 @@
 
 .propiedades-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+  
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px 60px;
   padding: 16px;
+
+  justify-items: center;
 }
   
 
@@ -59,30 +62,50 @@
   align-items: center;
 }
 
-.boton-añadir {
-  background-color: var(--color-primario);
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  font-size: 16px;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-}
-
 .circulo-mas {
-  background-color: #ffffff;
-  color: #4caf50;
+  position: absolute;
+  right: 0px; /* Ajusta según lo lejos que lo quieras */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color-terciario);
+  color: var(--color-blanco);
   font-weight: bold;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 2.8rem;
+  height: 2.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
-  font-size: 24px;
+  font-size: 3rem;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
 }
+
+
+.boton-flotante {
+  position: fixed;
+  bottom: 4rem;
+  left: 55%;
+  transform: translateX(-50%);
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 12px 52px 12px 20px;
+  font-size: 1.2rem;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.33);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  max-width: 90vw;
+  white-space: nowrap;
+}
+
+.boton-flotante:hover {
+  background-color: var(--color-primario-hover); /* Puedes ajustar este tono si quieres */
+  transform: translateX(-50%) scale(1.15);
+}
+
 

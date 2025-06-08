@@ -62,9 +62,6 @@ const actualizarPerfil = async (req, res) => {
     const user = await prisma.agricultor.findUnique({ where: { id: userId } });
     if (!user) return res.status(404).json({ message: 'Usuario no encontrado.' });
 
-    // Validaciones de correo y username...
-    // (idénticas a las que ya tienes)
-
     // Preparamos los datos a actualizar
     const datosActualizados = {};
     if (nombre) datosActualizados.nombre = nombre;
@@ -172,12 +169,16 @@ const obtenerPropiedades = async (req, res) => {
       select: {
         id: true,
         nombre: true,
+        numOlivos: true,
         descripcion: true,
-        tipo: true,
         superficie: true,
         direccion: true,
         coordenadas: true,
-        // (foto o descripción)
+        color: true,
+        tieneRiego: true,
+        numOlivosRiego: true,
+        variedad: true,
+        edadOlivos: true,
       },
     });
 
@@ -188,27 +189,37 @@ const obtenerPropiedades = async (req, res) => {
   }
 };
 
-// Dentro de userController.js
+
 
 const crearPropiedad = async (req, res) => {
   try {
     const {
       nombre,
+      numOlivos,
       descripcion,
-      tipo,
       superficie,
       coordenadas,
       direccion,
+      color,
+      tieneRiego,
+      numOlivosRiego,
+      variedad,
+      edadOlivos,
     } = req.body;
 
     const nuevaPropiedad = await prisma.propiedad.create({
       data: {
         nombre,
-        descripcion,
-        tipo,
+        numOlivos: parseInt(numOlivos),
+        descripcion: descripcion || null,
         superficie: parseInt(superficie),
-        coordenadas,
+        coordenadas: coordenadas || null,
         direccion,
+        color: color || null,
+        tieneRiego: tieneRiego !== undefined ? Boolean(tieneRiego) : null,
+        numOlivosRiego: numOlivosRiego ? parseInt(numOlivosRiego) : null,
+        variedad: variedad || null,
+        edadOlivos: edadOlivos ? parseInt(edadOlivos) : null,
         idPropietario: req.userId,
       },
     });
@@ -220,28 +231,111 @@ const crearPropiedad = async (req, res) => {
   }
 };
 
-const borrarPropiedad = async (req, res) => {
-  const propiedadId = parseInt(req.params.id);
-
+const obtenerPropiedadPorId = async (req, res) => {
   try {
-    const propiedad = await prisma.propiedad.findUnique({
-      where: { id: propiedadId },
+    const { id } = req.params;
+
+    const propiedad = await prisma.propiedad.findFirst({
+      where: {
+        id: parseInt(id),
+        idPropietario: req.userId,
+      },
     });
 
-    if (!propiedad || propiedad.idPropietario !== req.userId) {
-      return res.status(403).json({ message: "No tienes permiso para borrar esta propiedad." });
+    if (!propiedad) {
+      return res.status(404).json({ message: "Propiedad no encontrada" });
+    }
+
+    res.json(propiedad);
+  } catch (error) {
+    console.error("Error al obtener propiedad:", error);
+    res.status(500).json({ message: "Error al obtener propiedad" });
+  }
+};
+
+const actualizarPropiedad = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Verificamos que la propiedad exista y sea del usuario
+    const propiedad = await prisma.propiedad.findFirst({
+      where: {
+        id: parseInt(id),
+        idPropietario: req.userId,
+      },
+    });
+
+    if (!propiedad) {
+      return res.status(404).json({ message: "Propiedad no encontrada" });
+    }
+
+    const {
+      nombre,
+      numOlivos,
+      descripcion,
+      superficie,
+      coordenadas,
+      direccion,
+      color,
+      tieneRiego,
+      numOlivosRiego,
+      variedad,
+      edadOlivos,
+    } = req.body;
+
+    const propiedadActualizada = await prisma.propiedad.update({
+      where: { id: parseInt(id) },
+      data: {
+        nombre,
+        numOlivos: parseInt(numOlivos),
+        descripcion: descripcion || null,
+        superficie: parseInt(superficie),
+        coordenadas: coordenadas || null,
+        direccion,
+        color: color || null,
+        tieneRiego: tieneRiego !== undefined ? Boolean(tieneRiego) : null,
+        numOlivosRiego: numOlivosRiego ? parseInt(numOlivosRiego) : null,
+        variedad: variedad || null,
+        edadOlivos: edadOlivos ? parseInt(edadOlivos) : null,
+      },
+    });
+
+    res.json(propiedadActualizada);
+  } catch (error) {
+    console.error("Error al actualizar propiedad:", error);
+    res.status(500).json({ message: "Error al actualizar propiedad" });
+  }
+};
+
+
+
+
+const borrarPropiedad = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const propiedad = await prisma.propiedad.findFirst({
+      where: {
+        id: parseInt(id),
+        idPropietario: req.userId,
+      },
+    });
+
+    if (!propiedad) {
+      return res.status(404).json({ message: "Propiedad no encontrada" });
     }
 
     await prisma.propiedad.delete({
-      where: { id: propiedadId },
+      where: { id: parseInt(id) },
     });
 
-    res.json({ message: "Propiedad eliminada correctamente" });
+    res.json({ message: "Propiedad eliminada con éxito" });
   } catch (error) {
     console.error("Error al eliminar propiedad:", error);
     res.status(500).json({ message: "Error al eliminar propiedad" });
   }
 };
+
 
 
 module.exports = {
@@ -251,5 +345,7 @@ module.exports = {
   subirFotoPerfil,
   obtenerPropiedades,
   crearPropiedad,
-  borrarPropiedad
+  borrarPropiedad,
+  actualizarPropiedad,
+  obtenerPropiedadPorId
 };

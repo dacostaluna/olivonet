@@ -1,11 +1,16 @@
 .cuadro-propiedad {
-  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  width: 280px;
+  height: 10rem;
+  min-height: 8rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  padding: 16px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  --color-propiedad: #6a994e;
 }
 
 .cuadro-propiedad:hover {
@@ -13,23 +18,92 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-.cuadro-propiedad-img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
+/* -----------------------------------
+   Los fondos (mitades) sin z-index explícito,
+   para que el ::before no los tape por delante.
+   ----------------------------------- */
+.cuadro-arriba {
+  height: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  
 }
 
-.cuadro-propiedad-nombre {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
+.cuadro-arriba h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 1rem;
+
+  white-space: nowrap;         /* Evita saltos de línea */
+  overflow: hidden;            /* Oculta el desbordamiento */
+  text-overflow: ellipsis;     /* Añade los puntos suspensivos */
+  max-width: 100%;             /* Opcional: asegura que no crezca de más */
+}
+
+
+.cuadro-abajo {
+  height: 50%;
+  background-color: var(--color-propiedad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.8rem;
+}
+
+.cuadro-abajo p:last-child {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;         /* Máximo de líneas visibles */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+/* -----------------------------------
+   Texto: z-index alto para quedar siempre por encima del ::before
+   ----------------------------------- */
+.cuadro-arriba h2,
+.cuadro-abajo p {
+  position: relative;
+  z-index: 2;
   margin: 0;
 }
 
-.cuadro-propiedad-tipo {
-  font-size: 0.95rem;
-  color: #666;
-  margin-top: 4px;
+.cuadro-arriba h2 {
+  color: #000000;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 1rem;
+}
+
+.cuadro-abajo p {
+  color: #fff;
+  font-size: 1.1rem;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+/* -----------------------------------
+   Pseudo-elemento con z-index muy bajo (0),
+   para que “llene” el fondo sin tapar al texto (z-index 2).
+   ----------------------------------- */
+.cuadro-propiedad::before {
+  content: "";
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-propiedad);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center center;
+  transition: transform 0.5s ease;
+  z-index: 0; /* por debajo de textos (z-index:2) */
+  pointer-events: none;
+}
+
+.cuadro-propiedad:hover::before {
+  transform: translate(-50%, -50%) scale(2);
 }
