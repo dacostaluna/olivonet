@@ -1,30 +1,30 @@
 .tiempo-actual-contenedor {
   padding: 10px;
-  border: 1px solid #6a6a6a;
-  border-radius: 12px;
+  border-radius: 18px;
   width: 220px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, sans-serif;
-  background-color: #fafafa;
+  background-color: #59c36940;
   margin: 0 auto;
   text-align: center;
 }
 
 .tiempo-actual-principal {
   display: flex;
-  flex-direction: row;          /* <- CLAVE */
-  justify-content: center;      /* centrado horizontal */
-  align-items: center;          /* alineado vertical */
-  gap: 12px;                    /* espacio entre temperatura e icono */
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; 
   margin-bottom: 8px;
-  background-color: #59c36940;
+  background-color: #d2efd7;
   border-radius: 25px;
 }
 
 .tiempo-actual-detalles{
   display: flex;
-  flex-direction: row;          /* <- CLAVE */
-  justify-content: center;      /* centrado horizontal */
-  align-items: center;  
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
 }
 
 .viento{
@@ -50,8 +50,8 @@
 }
 
 .tiempo-actual-icono {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   cursor: pointer;
 }
 
@@ -79,7 +79,14 @@
 
 .tiempo-actual-mensaje {
   text-align: center;
+  justify-content: center;
   font-size: 16px;
   color: #777;
   font-family: Arial, sans-serif;
+
+  max-width: 400px;
+  margin: 0 auto;
+  word-wrap: break-word;
+  white-space: normal;
 }
+

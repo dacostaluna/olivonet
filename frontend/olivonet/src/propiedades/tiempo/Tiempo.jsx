@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Tiempo.css";
+import { FaSpinner } from 'react-icons/fa';
+import { BiErrorCircle } from 'react-icons/bi'
 
 const BASE_URL = "http://localhost:5000/api/clima";
 
@@ -16,7 +18,7 @@ const getColorFromTemperature = (temp) => {
   return "#cc0000"; // rojo oscuro
 };
 
-const Tiempo = ({ direccion, ruta, dia }) => {
+const Tiempo = ({ direccion, coordenadas, ruta = "actual", dia }) => {
   const [datos, setDatos] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -33,7 +35,23 @@ const Tiempo = ({ direccion, ruta, dia }) => {
     setLoading(true);
     setError(false);
 
-    fetch(`${BASE_URL}${ruta}/${encodeURIComponent(direccion)}`, {
+    // Construir URL con query params según los props
+    let url = `${BASE_URL}/${ruta}`;
+    const params = new URLSearchParams();
+
+    if (coordenadas) {
+      params.append("coordenadas", coordenadas);
+    } else if (direccion) {
+      params.append("direccion", direccion);
+    }
+
+    if ([...params].length > 0) {
+      url += `?${params.toString()}`;
+    }
+
+    console.log(url)
+
+    fetch(url, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -51,19 +69,32 @@ const Tiempo = ({ direccion, ruta, dia }) => {
         setError(true);
         setLoading(false);
       });
-  }, [direccion, ruta]);
+  }, [direccion, coordenadas, ruta, dia]);
 
   if (loading)
-    return <p className="tiempo-mensaje">Cargando datos del tiempo...</p>;
-  if (error || !datos || datos.temperatura === undefined)
     return (
-      <p className="tiempo-mensaje">
-        No se pudo obtener la información del tiempo.
-      </p>
+        <div className="spinner-container">
+            <FaSpinner className="spinner-icon" />
+        </div>
     );
 
-  const colorTemp = getColorFromTemperature(datos.temperatura);
-  const diaMostrado = dia || datos.fecha;
+  if (
+    error ||
+    !datos ||
+    (ruta === "actual" && datos.temperatura === undefined) ||
+    (ruta === "pronostico" && !Array.isArray(datos))
+  )
+    return (
+      <div style={{ textAlign: 'center', color: 'crimson' }}>
+      <BiErrorCircle size={48} />
+    </div>
+    );
+
+  // Si es pronóstico, asumo que datos es un array de días; aquí mostramos el primero o el día que se quiera
+  const info = ruta === "pronostico" ? datos[0] || {} : datos;
+
+  const colorTemp = getColorFromTemperature(info.temperatura || info.temperatura_max);
+  const diaMostrado = dia || info.fecha || "Hoy";
 
   return (
     <div className="tiempo-contenedor">
@@ -73,19 +104,29 @@ const Tiempo = ({ direccion, ruta, dia }) => {
         onMouseLeave={() => setHover(false)}
       >
         <img
-          src={`https://openweathermap.org/img/wn/${datos.icono}@2x.png`}
+          src={`https://openweathermap.org/img/wn/${info.icono}@2x.png`}
           alt="Icono del tiempo"
           className="tiempo-icono"
         />
-        {hover && <div className="tiempo-hover-texto">{datos.descripcion}</div>}
+        {hover && <div className="tiempo-hover-texto">{info.descripcion}</div>}
       </div>
       <div className="tiempo-detalles">
-        <div className="temperatura-max">{Math.round(datos.temperatura_max)}º</div>
-        <div className="temperatura-min">{Math.round(datos.temperatura_min)}º</div>
+        <div className="temperatura-max">
+          {info.temperatura_max !== undefined
+            ? Math.round(info.temperatura_max) + "º"
+            : info.temperatura
+            ? Math.round(info.temperatura) + "º"
+            : "-"}
+        </div>
+        <div className="temperatura-min">
+          {info.temperatura_min !== undefined
+            ? Math.round(info.temperatura_min) + "º"
+            : "-"}
+        </div>
       </div>
-      <div className="tiempo-dia">{diaMostrado}</div>
-      
-      
+      <div className="tiempo-dia">
+        {diaMostrado}
+      </div>
     </div>
   );
 };

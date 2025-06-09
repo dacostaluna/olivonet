@@ -19,7 +19,7 @@ const getColorFromTemperature = (temp) => {
   return "#cc0000";
 };
 
-const TiempoActual = ({ direccion, ruta, dia }) => {
+const TiempoActual = ({ direccion, coordenadas, ruta, dia }) => {
   const [datos, setDatos] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -36,7 +36,24 @@ const TiempoActual = ({ direccion, ruta, dia }) => {
     setLoading(true);
     setError(false);
 
-    fetch(`${BASE_URL}${ruta}/${encodeURIComponent(direccion)}`, {
+    
+    // Construir URL con query params según los props
+    let url = `${BASE_URL}/${ruta}`;
+    const params = new URLSearchParams();
+
+    if (coordenadas) {
+      params.append("coordenadas", coordenadas);
+    } else if (direccion) {
+      params.append("direccion", direccion);
+    }
+
+    if ([...params].length > 0) {
+      url += `?${params.toString()}`;
+    }
+
+    console.log(url)
+
+    fetch(url, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,17 +71,17 @@ const TiempoActual = ({ direccion, ruta, dia }) => {
         setError(true);
         setLoading(false);
       });
-  }, [direccion, ruta]);
+  }, [direccion, coordenadas, ruta, dia]);
 
   if (loading)
     return (
-      <p className="tiempo-actual-mensaje">Cargando datos del tiempo...</p>
+      <p className="tiempo-actual-mensaje">Cargando datos meteorológicos...</p>
     );
   if (error || !datos || datos.temperatura === undefined)
     return (
-      <p className="tiempo-actual-mensaje">
-        No se pudo obtener la información del tiempo.
-      </p>
+      <div className="tiempo-actual-mensaje">
+        No se pudo obtener la información meteorológica. Por favor, asegúrese de que esta propiedad tiene unas coordenadas o una dirección registrada
+      </div>
     );
 
   const colorTemp = getColorFromTemperature(datos.temperatura);

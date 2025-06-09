@@ -4,22 +4,23 @@ import TiempoActual from "./TiempoActual";
 import "./PanelTiempo.css";
 import Espacio from "../../extra/Espacio";
 
-const PanelTiempo = ({ direccion }) => {
+const PanelTiempo = ({ direccion, coordenadas}) => {
   return (
     <div className="panel-tiempo">
       <TiempoActual
         className="tiempo-actual"
         direccion={direccion}
-        ruta="/actual"
+        coordenadas={coordenadas}
+        ruta="actual"
         dia="Hoy"
       />
       <Espacio/>
 
       <div className="tiempo-dias">
-        <Tiempo direccion={direccion} ruta="/dia/1"  />
-        <Tiempo direccion={direccion} ruta="/dia/2"  />
-        <Tiempo direccion={direccion} ruta="/dia/3"  />
-        <Tiempo direccion={direccion} ruta="/dia/4"  />
+        <Tiempo direccion={direccion} coordenadas={coordenadas} ruta="pronostico/1"  />
+        <Tiempo direccion={direccion} coordenadas={coordenadas} ruta="pronostico/2"  />
+        <Tiempo direccion={direccion} coordenadas={coordenadas} ruta="pronostico/3"  />
+        <Tiempo direccion={direccion} coordenadas={coordenadas} ruta="pronostico/4"  />
       </div>
       
     </div>

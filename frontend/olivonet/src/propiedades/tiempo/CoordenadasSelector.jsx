@@ -54,7 +54,7 @@ const CoordenadasSelector = ({ onSave }) => {
         <ManejadorClick />
         <Marker position={posicion} />
       </MapContainer>
-      <button className="boton-guardar" onClick={handleGuardar} disabled={guardado}>
+      <button className="boton-guardar-mapa" onClick={handleGuardar} disabled={guardado}>
         {guardado ? "Guardado" : "Guardar"}
       </button>
     </div>

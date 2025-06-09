@@ -25,17 +25,29 @@
 .propiedad-informacion-contenedor{
   flex: 1; /* que ocupe todo el espacio disponible */
   min-width: 0; /* importante para evitar overflow con texto largo */
+  background-color: #f3f3f3af;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 15px;
+
 }
 
 .propiedad-olivos{
   display: flex;
-  flex-direction: row;
   align-items: flex-end;
 }
 
 .num-olivos{
-  font-size: 4rem;
+  font-size: 4.5rem;
   color: var(--color-primario)
+}
+
+.palabra-olivos{
+  position: relative;
+  bottom: 10px;
+  font-size: 2rem;
+  font-weight: 700;
+  color:#888;
 }
 
 .propiedad-main{

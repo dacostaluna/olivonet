@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Alto para asegurar que esté encima de todo */
+  z-index: 9000; /* Alto para asegurar que esté encima de todo */
 }
 
 .modal-contenido-mapa {
@@ -17,16 +17,86 @@
   padding: 20px;
   width: 80%;
   max-width: 600px;
-  height: 500px;
+  /* La altura la ajustamos con overflow para que sea responsive */
+  max-height: 90vh;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   position: relative;
   display: flex;
   flex-direction: column;
-  z-index: 10000;
+  z-index: 8999;
+  overflow-y: auto;
 }
 
 .modal-botones-mapa {
   margin-top: 10px;
   display: flex;
   justify-content: flex-end;
+}
+
+.btn-abrir-mapa {
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 6px;
+  align-self: flex-start;
+  transition: background-color 0.3s ease;
+}
+
+.btn-abrir-mapa:hover,
+.btn-guardar-mapa:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.buscador-direcciones-modal {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.buscador-direcciones-modal:focus {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 5px var(--color-primario);
+}
+
+/* Botones confirmar y cancelar */
+
+.btn-confirmar {
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-confirmar:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.btn-cancelar {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cancelar:hover {
+  background-color: #c0392b;
 }

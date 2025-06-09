@@ -4,6 +4,7 @@ import ModalCrearPropiedad from "./ModalCrearPropiedad";
 import Mensaje from "../extra/Mensaje";
 import "./Propiedades.css";
 import CuadroPropiedad from "./CuadroPropiedad";
+import Espacio from "../extra/Espacio";
 
 const Propiedades = ({ seleccionarPropiedad }) => {
   const [propiedades, setPropiedades] = useState([]);
@@ -55,6 +56,9 @@ const Propiedades = ({ seleccionarPropiedad }) => {
     <div className="contenedor-propiedades">
       <div className="barra-superior">
         <h1>Mis propiedades</h1>
+        <Espacio/>
+        <div>Desde este menú puedes <strong>gestionar tus olivares, fincas y propiedades</strong> en general. </div>
+        <div>Añade la información relevante, organiza tus cultivos y consulta la información meteorológica.</div>
       </div>
       <button className="boton-flotante" onClick={handleAñadir}>
         Añadir Propiedad

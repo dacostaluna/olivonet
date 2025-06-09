@@ -7,6 +7,11 @@
   padding: 16px;
 
   justify-items: center;
+
+  background-color: #f3f3f3af;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 3rem;
+  border-radius: 15px;
 }
   
 
@@ -58,8 +63,15 @@
 
 .barra-superior {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
+  margin-bottom: 2rem;
+}
+
+.barra-superior div{
+  font-size: 1.1rem;
+  margin-bottom: 5px;
 }
 
 .circulo-mas {

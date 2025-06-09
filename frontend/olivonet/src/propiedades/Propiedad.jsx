@@ -72,6 +72,10 @@ const Propiedad = ({ idPropiedad, volver }) => {
     );
   };
 
+  const handleCoordenadasSeleccionadas = (nuevasCoordenadas) => {
+    handleCampoChange("coordenadas", nuevasCoordenadas);
+  };
+
   const esFormularioValido = () => {
     return camposNumericos.every((campo) => /^\d*$/.test(formData[campo]));
   };
@@ -198,24 +202,26 @@ const Propiedad = ({ idPropiedad, volver }) => {
           <Espacio />
           <div className="propiedad-main">
             <div className="propiedad-informacion-contenedor">
-              <p className="propiedad-olivos">
-                <strong className="num-olivos"> {formData.numOlivos || ""}</strong>
-                <Espacio anchura="10px"/>
-                <p className="palabra-olivos">Olivos</p>
-              </p>
+              <div className="propiedad-olivos">
+                <strong className="num-olivos">
+                  {" "}
+                  {formData.numOlivos || ""}
+                </strong>
+                <Espacio anchura="10px" />
+                <div className="palabra-olivos">Olivos</div>
+              </div>
               <p className="propiedad-informacion">
-              {formData.descripcion || ""}
+                {formData.descripcion || ""}
               </p>
               <p className="propiedad-informacion">
                 <strong> {formData.direccion || ""}</strong>
               </p>
             </div>
             <div className="panel-tiempo-propiedad">
-              <PanelTiempo direccion={formData.direccion} />
+              <PanelTiempo direccion={formData.direccion} coordenadas={formData.coordenadas} />
             </div>
           </div>
 
-          <ModalMapa/>
 
           <Espacio />
 
@@ -253,6 +259,10 @@ const Propiedad = ({ idPropiedad, volver }) => {
             editable={true}
             onChange={(v) => handleCampoChange("coordenadas", v)}
           />
+          
+          <ModalMapa onSeleccionarCoordenadas={handleCoordenadasSeleccionadas} />
+          <Espacio/>
+
 
           <CampoEditable
             titulo="Dirección"

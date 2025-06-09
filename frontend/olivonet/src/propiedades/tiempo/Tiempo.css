@@ -78,3 +78,12 @@
   color: rgb(0, 120, 205);
 
 }
+
+.spinner-icon {
+  font-size: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
