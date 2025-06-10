@@ -1,5 +1,11 @@
 // App.jsx
 import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import MenuLateral from "../menu/MenuLateral.jsx";
 import Perfil from "../perfil/Perfil.jsx";
 import Inicio from "../inicio/Inicio.jsx";
@@ -7,47 +13,28 @@ import Propiedades from "../propiedades/Propiedades.jsx";
 import Propiedad from "../propiedades/Propiedad.jsx";
 import "./App.css";
 
-const App = () => {
-  const [seccionActiva, setSeccionActiva] = useState("inicio");
+// Componente de layout principal con menú y contenido
+const AppLayout = () => {
   const [menuAbierto, setMenuAbierto] = useState(true);
   const [idPropiedadSeleccionada, setIdPropiedadSeleccionada] = useState(null);
+  const navigate = useNavigate();
 
   const seleccionarPropiedad = (id) => {
     setIdPropiedadSeleccionada(id);
-    setSeccionActiva("detalle-propiedad");
+    navigate("/propiedad");
   };
 
   const volverAPropiedades = () => {
     setIdPropiedadSeleccionada(null);
-    setSeccionActiva("propiedades");
-  };
-
-  const renderContenido = () => {
-    switch (seccionActiva) {
-      case "inicio":
-        return <Inicio />;
-      case "perfil":
-        return <Perfil />;
-      case "propiedades":
-        return <Propiedades seleccionarPropiedad={seleccionarPropiedad} />;
-      case "detalle-propiedad":
-        return (
-          <Propiedad
-            idPropiedad={idPropiedadSeleccionada}
-            volver={volverAPropiedades}
-          />
-        );
-      default:
-        return <div>Selecciona una opción del menú</div>;
-    }
+    navigate("/propiedades");
   };
 
   return (
     <div className="contenedor-app">
       <MenuLateral
         setSeccionActiva={(seccion) => {
-          setSeccionActiva(seccion);
-          setIdPropiedadSeleccionada(null); // Limpiar selección si se cambia de sección
+          setIdPropiedadSeleccionada(null);
+          navigate("/" + seccion);
         }}
         setMenuAbierto={setMenuAbierto}
       />
@@ -56,10 +43,33 @@ const App = () => {
           menuAbierto ? "contenido-con-menu" : "contenido-sin-menu"
         }`}
       >
-        {renderContenido()}
+        <Routes>
+          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route
+            path="/propiedades"
+            element={
+              <Propiedades seleccionarPropiedad={seleccionarPropiedad} />
+            }
+          />
+          <Route
+            path="/propiedad"
+            element={
+              <Propiedad
+                idPropiedad={idPropiedadSeleccionada}
+                volver={volverAPropiedades}
+              />
+            }
+          />
+          <Route path="*" element={<div>Ruta no encontrada</div>} />
+        </Routes>
       </div>
     </div>
   );
+};
+
+const App = () => {
+  return <AppLayout />;
 };
 
 export default App;

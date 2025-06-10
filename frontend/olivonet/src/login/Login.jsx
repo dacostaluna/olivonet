@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
 import Formulario from "../extra/Formulario";
@@ -16,6 +17,7 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const navigate = useNavigate();
 
 
   const handleLogin = async () => {
@@ -41,6 +43,8 @@ const Login = ({ onLogin }) => {
       localStorage.setItem("token", token);
       setError("");
       if (onLogin) onLogin(token); // Notifica al componente padre que el login fue exitoso
+
+      navigate("/inicio");
 
     } catch (err) {
       console.error(err);

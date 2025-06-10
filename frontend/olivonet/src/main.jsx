@@ -1,5 +1,6 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { useTokenMonitor } from "./hooks/useTokenMonitor";
 import Login from "./login/Login.jsx";
@@ -14,10 +15,12 @@ const Root = () => {
       {token ? (
         <App />
       ) : (
-        <Login onLogin={(newToken) => {
-          localStorage.setItem("token", newToken);
-          setToken(newToken);
-        }} />
+        <Login
+          onLogin={(newToken) => {
+            localStorage.setItem("token", newToken);
+            setToken(newToken);
+          }}
+        />
       )}
 
       {expired && <SesionExpirada onClose={clearSession} />}
@@ -27,6 +30,8 @@ const Root = () => {
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Root />
+    <Router>
+      <Root />
+    </Router>
   </StrictMode>
 );

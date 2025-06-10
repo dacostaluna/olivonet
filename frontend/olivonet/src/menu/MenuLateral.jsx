@@ -1,15 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BotonMenu from "./BotonMenu";
-
-import "./MenuLateral.css"; // Los estilos los pondremos aquí
+import "./MenuLateral.css";
 
 import logo from "../assets/olivonet-icon.png";
-import flecha from "../assets/flecha-izquierda.png"; // Icono de flecha para el botón de
-import cerrar_sesion from "../assets/cerrar-sesion.png"; // Icono de cerrar sesión
+import flecha from "../assets/flecha-izquierda.png";
+import cerrar_sesion from "../assets/cerrar-sesion.png";
 import Login from "../login/Login";
 
-const MenuLateral = ({ setSeccionActiva, setMenuAbierto}) => {
-  const [activo, setActivo] = useState("inicio"); // estado global del botón activo
+const MenuLateral = ({ setSeccionActiva, setMenuAbierto }) => {
+  const navigate = useNavigate();
+  const [activo, setActivo] = useState("inicio");
   const [abierto, setAbiertoLocal] = useState(true);
 
   const manejarClick = (seccion) => {
@@ -22,7 +23,6 @@ const MenuLateral = ({ setSeccionActiva, setMenuAbierto}) => {
     setAbiertoLocal(nuevoEstado);
     setMenuAbierto(nuevoEstado); // Avisamos al componente padre
   };
-
 
   return (
     <>
@@ -50,7 +50,6 @@ const MenuLateral = ({ setSeccionActiva, setMenuAbierto}) => {
             icono="https://cdn-icons-png.flaticon.com/512/25/25694.png" // Casa, blanco y negro
             activo={activo === "inicio"}
             onClick={() => manejarClick("inicio")}
-
           />
           <BotonMenu
             texto="Propiedades"
@@ -85,8 +84,8 @@ const MenuLateral = ({ setSeccionActiva, setMenuAbierto}) => {
             className="boton-simple cuadrado cerrar-sesion"
             title="Cerrar sesión"
             onClick={() => {
-              localStorage.removeItem("token"); // ⬅️ Elimina el token
-              window.location.reload(); // ⬅️ Recarga la página
+              localStorage.removeItem("token"); // Borras el token
+              window.location.href = "/"; // Rediriges a la raíz (donde tienes el login)
             }}
           >
             <img src={cerrar_sesion} alt="Cerrar sesión" />
