@@ -10,6 +10,8 @@ import logo from "../assets/olivonet-icon3.png";
 import videoFondo from "../assets/video_fondo.mp4";
 import RegistroModal from "../registro/RegistroModal";
 
+import LoginCooperativa from "./LoginCooperativa"; // IMPORTAMOS LoginCooperativa
+
 
 const Login = ({ onLogin }) => {
   const [correo, setCorreo] = useState("");
@@ -17,9 +19,10 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [modoCooperativa, setModoCooperativa] = useState(false); // NUEVO estado para alternar login
   const navigate = useNavigate();
 
-
+  // Función de login para agricultor
   const handleLogin = async () => {
     if (!correo.trim() || !password.trim()) {
       setError("Por favor, introduce correo y contraseña.");
@@ -42,10 +45,9 @@ const Login = ({ onLogin }) => {
       const token = response.data.token;
       localStorage.setItem("token", token);
       setError("");
-      if (onLogin) onLogin(token); // Notifica al componente padre que el login fue exitoso
+      if (onLogin) onLogin(token);
 
       navigate("/inicio");
-
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Error al iniciar sesión");
@@ -61,41 +63,45 @@ const Login = ({ onLogin }) => {
         Tu navegador no soporta el video.
       </video>
 
-      <div className="cuadro-login">
-        <h2 className="titulo-login">INICIA SESIÓN</h2>
+      {!modoCooperativa ? (
+        <div className="cuadro-login">
+          <h2 className="titulo-login">INICIA SESIÓN</h2>
 
-        <Espacio altura="5%" />
-        <Formulario
-          texto="Correo electrónico"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-        />
-        <Espacio />
-        <Formulario
-          texto="Contraseña"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <Espacio altura="5%" />
+          <Formulario
+            texto="Correo electrónico"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+          />
+          <Espacio />
+          <Formulario
+            texto="Contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <a href="#" className="forgot-password">
-          ¿Olvidaste la contraseña?
-        </a>
+          <a href="#" className="forgot-password">
+            ¿Olvidaste la contraseña?
+          </a>
 
-        <div className="mensaje-error">{error || "\u00A0"}</div>
+          <div className="mensaje-error">{error || "\u00A0"}</div>
 
-        <Espacio altura="5%" />
+          <Espacio altura="5%" />
 
-        <button className="boton-login" onClick={handleLogin} disabled={loading}>
-          {"Iniciar sesión"}
-        </button>
-        <p className="texto">o crea una cuenta nueva</p>
+          <button className="boton-login" onClick={handleLogin} disabled={loading}>
+            {"Iniciar sesión"}
+          </button>
+          <p className="texto">o crea una cuenta nueva</p>
 
-        <Espacio altura="4%" />
-        <button className="crear-cuenta" onClick={() => setMostrarModal(true)}>Crear cuenta</button>
+          <Espacio altura="4%" />
+          <button className="crear-cuenta" onClick={() => setMostrarModal(true)}>Crear cuenta</button>
 
-        <Espacio altura="2%" />
-      </div>
+          <Espacio altura="2%" />
+        </div>
+      ) : (
+        <LoginCooperativa onLogin={onLogin} onBack={() => setModoCooperativa(false)} />
+      )}
 
       <div className="fondo-login">
         <h1>La comunidad que une a agricultores y cooperativas ha llegado</h1>
@@ -103,7 +109,17 @@ const Login = ({ onLogin }) => {
           <img src={logo} alt="OlivoNET" />
         </div>
       </div>
+
       <RegistroModal visible={mostrarModal} onClose={() => setMostrarModal(false)} />
+
+      {/* BOTÓN FLOTANTE PARA CAMBIAR LOGIN */}
+      <button
+        className="boton-flotante"
+        onClick={() => setModoCooperativa(!modoCooperativa)}
+        aria-label="Cambiar tipo de login"
+      >
+        {modoCooperativa ? "¿Eres agricultor?" : "¿Eres cooperativa?"}
+      </button>
     </div>
   );
 };

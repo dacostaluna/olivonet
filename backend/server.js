@@ -12,6 +12,9 @@ app.use(express.json());
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
+const authCooperativaRoutes = require('./routes/authCooperativaRoutes');
+app.use('/api/auth/cooperativa', authCooperativaRoutes);
+
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/admin', adminRoutes);
 

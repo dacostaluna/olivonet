@@ -5,15 +5,20 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { useTokenMonitor } from "./hooks/useTokenMonitor";
 import Login from "./login/Login.jsx";
 import App from "./app/App.jsx";
+import AppCooperativa from "./app/AppCooperativa.jsx";
 import SesionExpirada from "./extra/SesionExpirada.jsx";
 
 const Root = () => {
-  const { token, expired, clearSession, setToken } = useTokenMonitor();
+  const { token, expired, userType, clearSession, setToken } = useTokenMonitor();
 
   return (
     <>
       {token ? (
-        <App />
+        userType === "cooperativa" ? (
+          <AppCooperativa />
+        ) : (
+          <App />
+        )
       ) : (
         <Login
           onLogin={(newToken) => {

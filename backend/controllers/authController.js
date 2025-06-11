@@ -54,9 +54,12 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Credenciales inválidas" });
     }
     
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    // Incluimos tipo "agricultor" en el payload del token
+    const token = jwt.sign(
+      { id: user.id, tipo: "agricultor" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
     res.json({ token });
   } catch (error) {
@@ -64,6 +67,7 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: "Error al hacer login" });
   }
 };
+
 
 module.exports = {
   registerUser,

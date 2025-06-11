@@ -10,14 +10,6 @@
   --color-gris: #888888;
 }
 
-/* Estructura general
-.pagina-login {
-  display: flex;
-  height: 100vh;
-  background-color: var(--color-fondo);
-}
-  */
-
 .pagina-login {
   position: relative;
   z-index: 1;
@@ -122,21 +114,21 @@
 
 /* Logo */
 .logo {
-  position: fixed; /* mueve todo el bloque */
+  position: fixed; 
   height: 110px;
   width: 110px;
   top: 20px;
   right: 30px;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 1) 0%,   /* centro más oscuro */
-    rgba(255, 255, 255, 0.5) 90%,  /* degradado hacia el borde */
-    rgba(255, 255, 255, 0) 100%  /* totalmente transparente al final */
+    rgba(255, 255, 255, 1) 0%,   
+    rgba(255, 255, 255, 0.5) 90%, 
+    rgba(255, 255, 255, 0) 100%  
   );
   border-radius: 500px;
   padding: 10px;
   display: inline-block;
-  z-index: 2; /* asegúrate de que esté por delante del video */
+  z-index: 2; 
 }
 
 @media (max-width: 768px) {
@@ -157,7 +149,7 @@
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: -1; /* Para que quede detrás del contenido */
+  z-index: -1; 
   filter: grayscale(45%) brightness(60%);
 
 }
@@ -167,7 +159,7 @@
   margin-left: 2px;
   font-size: 1em;
   font-weight: bold;
-  min-height: 1.5em; /* reserva espacio */
+  min-height: 1.5em; 
   color: var(--color-warning);
   margin-top: 0.5em;
 }
