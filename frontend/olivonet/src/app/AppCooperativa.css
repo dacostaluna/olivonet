@@ -1,0 +1,105 @@
+.app-coop-container {
+  position: relative;
+ 
+  min-height: 100vh;
+}
+
+.boton-cerrar-sesion-coop {
+  background-color: var(--color-priamrio);
+  border: none;
+  color: var(--color-blanco);
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.boton-cerrar-sesion-coop:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.boton-cerrar-sesion-coop.cuadrado {
+  width: 45px;
+  height: 45px;
+}
+
+.boton-cerrar-sesion-coop img {
+  margin-top: 11%;
+  margin-right: 8%;
+  width: 25px;
+  height: 25px;
+  transition: filter 0.2s ease-in-out;
+}
+
+/* Botón específico de cerrar sesión */
+.boton-cerrar-sesion-coop.cerrar-sesion {
+  background-color: var(--color-transparente);
+}
+
+.boton-cerrar-sesion-coop.cerrar-sesion:hover {
+  background-color: var(--color-warning);
+}
+
+.boton-cerrar-sesion-coop.cerrar-sesion:hover img {
+  filter: brightness(0) invert(1); /* convierte la imagen a blanco */
+}
+
+.contenedor-cerrar-sesion-coop{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  height: auto;
+  gap: 0.5rem;
+  top: 5rem;
+  right: 2rem;
+  z-index: 999;
+  border-radius: 1rem;
+  border-color: rgb(224, 224, 224);
+  border-style: solid;
+  border-width: 3px;
+  padding: 0 2rem 0 0;
+  color: rgb(207, 2, 2);
+
+}
+
+.encabezado-centrado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.contenido-cooperativa {
+  padding: 20px;
+}
+
+.cabecera-cooperativa {
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+  min-width: 60rem;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.logo-menu-coop {
+  position: absolute;
+  left: 3rem;
+  top: 2rem;
+  height: 10rem;
+  width: auto;
+}
+
+.encabezado-wrapper {
+  width: 90%;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+.barra-arriba-coop{
+  width: 100%;
+  background-color: rgb(234, 234, 234);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+

@@ -1,0 +1,36 @@
+.encabezado-coop-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-terciario);
+  padding: 1.5rem;
+  border-radius: 70px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  justify-self: center;
+}
+
+.info-coop {
+  position: relative;
+  flex-grow: 1;
+  margin-left: 2rem;
+  bottom: 1rem;
+}
+
+.coop-nombre {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+.coop-direccion,
+.coop-correo {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0.3rem 0;
+}
+
+.encabezado-coop-container img{
+    margin-right:10rem;
+}

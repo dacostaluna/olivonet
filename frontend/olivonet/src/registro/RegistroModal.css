@@ -56,7 +56,6 @@
   }
 }
 
-
 .titulo {
   margin-top: -1.2rem;
   font-size: 2.4rem;
@@ -116,4 +115,11 @@
 
 .formulario + .formulario {
   margin-top: 5px; /* o el valor que prefieras */
+}
+
+.mensaje-modal-registro-cooperativa{
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  text-align: center;
+  color: #333;
 }

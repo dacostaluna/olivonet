@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import cerrar_sesion from "../assets/cerrar-sesion.png"; // ajusta el path si es necesario
+import cerrar_sesion from "../assets/cerrar-sesion.png";
+import InicioCooperativa from "../inicio/cooperativa/InicioCooperativa.jsx";
+import EncabezadoCooperativa from "../inicio/cooperativa/EncabezadoCooperativa.jsx";
 
-// Componentes de ejemplo
+import "./AppCooperativa.css";
+import logo from "../assets/olivonet-icon3.png";
+
 const Dashboard = () => <h2>Panel de Cooperativa</h2>;
 const Productos = () => <h2>Gestión de Productos</h2>;
 
-// Botón de logout
 const BotonLogout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/"
+    window.location.href = "/";
   };
 
   return (
     <button
-      className="boton-simple cuadrado cerrar-sesion"
+      className="boton-cerrar-sesion-coop cuadrado cerrar-sesion"
       title="Cerrar sesión"
       onClick={handleLogout}
     >
@@ -28,7 +31,8 @@ const BotonLogout = () => {
 };
 
 const AppCooperativa = () => {
-  const [estado, setEstado] = useState("cargando"); // "cargando", "valido", "invalido"
+  const [estado, setEstado] = useState("cargando");
+  const [idCooperativa, setIdCooperativa] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -39,10 +43,9 @@ const AppCooperativa = () => {
 
     try {
       const decoded = jwtDecode(token);
-      console.log("Token decodificado:", decoded);
-
       if (decoded.tipo === "cooperativa") {
         setEstado("valido");
+        setIdCooperativa(decoded.id);
       } else {
         setEstado("invalido");
       }
@@ -52,26 +55,30 @@ const AppCooperativa = () => {
     }
   }, []);
 
-  if (estado === "cargando") {
-    return <div>Cargando...</div>;
-  }
-
-  if (estado === "invalido") {
-    return <div>No autorizado. Por favor inicia sesión como cooperativa.</div>;
-  }
+  if (estado === "cargando") return <div>Cargando...</div>;
+  if (estado === "invalido") return <div>No autorizado.</div>;
 
   return (
-    <div>
-      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1>Bienvenida, Cooperativa</h1>
+    <div className="app-coop-container">
+      <div className="contenedor-cerrar-sesion-coop">
         <BotonLogout />
-      </header>
+        <a>Cerrar sesión</a>
+      </div>
+      <div className="barra-arriba-coop">
+        <div className="cabecera-cooperativa">
+          <img src={logo} alt="Logo" className="logo-menu-coop" />
+          <div className="encabezado-wrapper">
+            <EncabezadoCooperativa id={idCooperativa} />
+          </div>
+        </div>
+      </div>
 
-      <Routes>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="productos" element={<Productos />} />
-        {/* Puedes añadir más rutas aquí */}
-      </Routes>
+      <div className="contenido-cooperativa">
+        <Routes>
+          <Route path="inicio" element={<InicioCooperativa />} />
+          <Route path="productos" element={<Productos />} />
+        </Routes>
+      </div>
     </div>
   );
 };

@@ -18,6 +18,9 @@ model Agricultor {
   password          String
   propiedades       Propiedad[] // Un agricultor puede tener múltiples 
   fotoPerfil        String?     // URL de foto de perfil
+
+  cooperativaId     Int?
+  cooperativa       Cooperativa? @relation(fields: [cooperativaId], references: [id])
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
 }
@@ -29,6 +32,9 @@ model Cooperativa {
   password        String
   direccion       String
   nif             String
+  fotoPerfil      String?
+  
+  agricultores    Agricultor[]
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
 }

@@ -1,15 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import Formulario from "../extra/Formulario";
+import Espacio from "../extra/Espacio";
+import Mensaje from "../extra/Mensaje";
+import RegistroCooperativaModal from "../registro/RegistroCooperativaModal";
 
 const LoginCooperativa = ({ onLogin, onBack }) => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [mensaje, setMensaje] = useState(null);
+  const [mostrarModal, setMostrarModal] = useState(false);
+
+  const navigate = useNavigate();
+  
 
   const handleLogin = async () => {
     if (!correo.trim() || !password.trim()) {
-      setError("Por favor, introduce correo y contraseña.");
+      setMensaje({ texto: "Por favor, introduce correo y contraseña", tipo: "error" });
+      return;
+    }
+
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regexCorreo.test(correo)) {
+      setMensaje({ texto: "Por favor, introduce un correo válido", tipo: "error" });
       return;
     }
 
@@ -21,12 +37,13 @@ const LoginCooperativa = ({ onLogin, onBack }) => {
       });
       const token = response.data.token;
       localStorage.setItem("token", token);
-      setError("");
+      setMensaje({ texto: "", tipo: "exito" });
       if (onLogin) onLogin(token);
 
       navigate("/inicio");
     } catch (err) {
-      setError(err.response?.data?.message || "Error al iniciar sesión");
+      setMensaje({ texto: err.response?.data?.message, tipo: "error" });
+
     } finally {
       setLoading(false);
     }
@@ -36,24 +53,31 @@ const LoginCooperativa = ({ onLogin, onBack }) => {
     <div className="cuadro-login">
       <h2 className="titulo-login">INICIA SESIÓN COMO COOPERATIVA</h2>
 
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-        value={correo}
-        onChange={(e) => setCorreo(e.target.value)}
+      <Formulario
+            texto="Correo electrónico"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
       />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+      <Formulario
+            texto="Contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
       />
 
-      <div className="mensaje-error">{error || "\u00A0"}</div>
+      <Espacio altura="20px" />
 
-      <button onClick={handleLogin} disabled={loading}>Iniciar sesión</button>
+      <button className="boton-login" onClick={handleLogin} disabled={loading}>
+        {"Iniciar sesión"}
+      </button>
+      <p className="texto">o crea una cuenta nueva</p>
 
-      <button onClick={onBack} style={{ marginTop: "10px" }}>Volver</button>
+      <Espacio altura="3%" />
+      <button className="crear-cuenta" onClick={() => setMostrarModal(true)}>Crear cuenta</button>
+      {mensaje && <Mensaje tipo={mensaje.tipo} texto={mensaje.texto} />}
+
+      <RegistroCooperativaModal visible={mostrarModal} onClose={() => setMostrarModal(false)} />
+
     </div>
   );
 };

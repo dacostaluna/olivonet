@@ -15,6 +15,9 @@ app.use('/api/auth', authRoutes);
 const authCooperativaRoutes = require('./routes/authCooperativaRoutes');
 app.use('/api/auth/cooperativa', authCooperativaRoutes);
 
+const cooperativaRoutes = require('./routes/cooperativaRoutes');
+app.use('/cooperativa', cooperativaRoutes);
+
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/admin', adminRoutes);
 
@@ -22,10 +25,6 @@ const userRoutes = require('./routes/userRoutes');
 app.use('/', userRoutes);
 
 app.use("/api/clima", require("./routes/climaRoutes"));
-
-
-
-
 
 
 // Puerto

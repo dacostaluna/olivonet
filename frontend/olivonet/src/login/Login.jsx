@@ -9,6 +9,7 @@ import Espacio from "../extra/Espacio";
 import logo from "../assets/olivonet-icon3.png";
 import videoFondo from "../assets/video_fondo.mp4";
 import RegistroModal from "../registro/RegistroModal";
+import Mensaje from "../extra/Mensaje";
 
 import LoginCooperativa from "./LoginCooperativa"; // IMPORTAMOS LoginCooperativa
 
@@ -16,8 +17,8 @@ import LoginCooperativa from "./LoginCooperativa"; // IMPORTAMOS LoginCooperativ
 const Login = ({ onLogin }) => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [mensaje, setMensaje] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [modoCooperativa, setModoCooperativa] = useState(false); // NUEVO estado para alternar login
   const navigate = useNavigate();
@@ -25,13 +26,13 @@ const Login = ({ onLogin }) => {
   // Función de login para agricultor
   const handleLogin = async () => {
     if (!correo.trim() || !password.trim()) {
-      setError("Por favor, introduce correo y contraseña.");
+      setMensaje({ texto: "Por favor, introduce correo y contraseña", tipo: "error" });
       return;
     }
 
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regexCorreo.test(correo)) {
-      setError("Por favor, introduce un correo válido.");
+      setMensaje({ texto: "Por favor, introduce un correo válido", tipo: "error" });
       return;
     }
 
@@ -44,13 +45,12 @@ const Login = ({ onLogin }) => {
 
       const token = response.data.token;
       localStorage.setItem("token", token);
-      setError("");
+      setMensaje({ texto: "", tipo: "exito" });
       if (onLogin) onLogin(token);
 
       navigate("/inicio");
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Error al iniciar sesión");
+      setMensaje({ texto: err.response?.data?.message, tipo: "error" });
     } finally {
       setLoading(false);
     }
@@ -85,7 +85,6 @@ const Login = ({ onLogin }) => {
             ¿Olvidaste la contraseña?
           </a>
 
-          <div className="mensaje-error">{error || "\u00A0"}</div>
 
           <Espacio altura="5%" />
 
@@ -98,6 +97,8 @@ const Login = ({ onLogin }) => {
           <button className="crear-cuenta" onClick={() => setMostrarModal(true)}>Crear cuenta</button>
 
           <Espacio altura="2%" />
+          {mensaje && <Mensaje tipo={mensaje.tipo} texto={mensaje.texto} />}
+
         </div>
       ) : (
         <LoginCooperativa onLogin={onLogin} onBack={() => setModoCooperativa(false)} />
@@ -114,7 +115,7 @@ const Login = ({ onLogin }) => {
 
       {/* BOTÓN FLOTANTE PARA CAMBIAR LOGIN */}
       <button
-        className="boton-flotante"
+        className="boton-flotante-login"
         onClick={() => setModoCooperativa(!modoCooperativa)}
         aria-label="Cambiar tipo de login"
       >

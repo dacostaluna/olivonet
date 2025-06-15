@@ -20,12 +20,13 @@
 
 /* Lado izquierdo: formulario */
 .cuadro-login {
-  height: 35em;
+  min-height: 35rem;
+  max-height: 40rem;
   width: 20%;
   min-width: 360px;
   background-color: var(--color-blanco);
   border-radius: 45px;
-  padding: 1.5% 3%;
+  padding: 1.5% 3% 10px;
   margin: auto 0 auto 5%;
   display: flex;
   flex-direction: column;
@@ -48,7 +49,8 @@
 .boton-login {
   align-self: center;
   width: 90%;
-  height: 5rem;
+  height: 3rem;
+  min-height: 3rem;
   background-color: var(--color-verde);
   color: var(--color-blanco);
   border: none;
@@ -164,3 +166,29 @@
   margin-top: 0.5em;
 }
 
+.boton-flotante-login {
+  position: fixed;
+  bottom: 3.5rem;
+  left: 92%;
+  transform: translateX(-50%);
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 12px 20px 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.33);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  max-width: 90vw;
+  white-space: nowrap;
+}
+
+.boton-flotante-login:hover {
+  background-color: var(--color-primario-hover); /* Puedes ajustar este tono si quieres */
+  transform: translateX(-50%) scale(1.15);
+}
