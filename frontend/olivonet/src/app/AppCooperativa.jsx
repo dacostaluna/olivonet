@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import cerrar_sesion from "../assets/cerrar-sesion.png";
-import InicioCooperativa from "../inicio/cooperativa/InicioCooperativa.jsx";
 import EncabezadoCooperativa from "../inicio/cooperativa/EncabezadoCooperativa.jsx";
 
 import "./AppCooperativa.css";
 import logo from "../assets/olivonet-icon3.png";
+import InicioCooperativa from "../inicio/cooperativa/InicioCooperativa.jsx";
 
 const Dashboard = () => <h2>Panel de Cooperativa</h2>;
 const Productos = () => <h2>Gestión de Productos</h2>;

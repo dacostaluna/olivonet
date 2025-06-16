@@ -104,9 +104,99 @@ const borrarCooperativa = async (req, res) => {
   }
 };
 
+
+const obtenerAgricultores = async (req, res) => {
+  try {
+    const idCooperativa = req.cooperativaId;
+
+    const agricultores = await prisma.agricultor.findMany({
+      where: { cooperativaId: idCooperativa },
+    });
+
+    res.json(agricultores);
+  } catch (error) {
+    console.error("Error obteniendo agricultores:", error);
+    res.status(500).json({ message: "Error al obtener los agricultores" });
+  }
+};
+
+
+const buscarAgricultor = async (req, res) => {
+  try {
+    const idCooperativa = req.cooperativaId;
+    const termino = req.params.termino;
+
+    const agricultor = await prisma.agricultor.findFirst({
+      where: {
+        cooperativaId: idCooperativa,
+        OR: [
+          { correo: termino },
+          { dni: termino }
+        ]
+      }
+    });
+
+    if (!agricultor) {
+      return res.status(404).json({ message: "Agricultor no encontrado" });
+    }
+
+    res.status(200).json(agricultor);
+  } catch (error) {
+    console.error("Error al buscar agricultor:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
+
+
+const asociarAgricultor = async (req, res) => {
+  try {
+    const idCooperativa = req.cooperativaId;
+    const { termino } = req.body; // puede ser correo o dni
+
+    if (!termino) {
+      return res.status(400).json({ message: "Debes proporcionar un correo o un DNI del agricultor" });
+    }
+
+    // Buscar agricultor por correo o dni
+    const agricultor = await prisma.agricultor.findFirst({
+      where: {
+        OR: [
+          { correo: termino },
+          { dni: termino }
+        ]
+      }
+    });
+
+    if (!agricultor) {
+      return res.status(404).json({ message: "Agricultor no encontrado" });
+    }
+
+    // Verificar si ya está asociado
+    if (agricultor.cooperativaId) {
+      return res.status(400).json({ message: "Este agricultor ya está asociado a una cooperativa" });
+    }
+
+    // Asociar agricultor a la cooperativa actual
+    const agricultorActualizado = await prisma.agricultor.update({
+      where: { id: agricultor.id },
+      data: { cooperativaId: idCooperativa }
+    });
+
+    res.status(200).json({ message: "Agricultor asociado correctamente", agricultor: agricultorActualizado });
+
+  } catch (error) {
+    console.error("Error al asociar agricultor:", error);
+    res.status(500).json({ message: "Error interno al asociar agricultor" });
+  }
+};
+
 module.exports = {
   obtenerPerfilCooperativa,
   actualizarCooperativa,
   subirFotoPerfil,
   borrarCooperativa,
+  obtenerAgricultores,
+  buscarAgricultor,
+  asociarAgricultor
 };

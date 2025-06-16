@@ -72,7 +72,8 @@ const obtenerAgricultores = async (req, res) => {
         dni: true,
         fechaNacimiento: true,
         createdAt: true,
-        updatedAt: true
+        updatedAt: true,
+        cooperativaId: true,
       }
     });
 

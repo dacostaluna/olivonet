@@ -4,7 +4,7 @@ const authMiddlewareCooperativa = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "No autorizado" });
+    return res.status(401).json({ message: "Acceso no autorizado. Token faltante." });
   }
 
   const token = authHeader.split(" ")[1];
