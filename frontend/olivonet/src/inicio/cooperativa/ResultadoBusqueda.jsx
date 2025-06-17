@@ -1,14 +1,29 @@
 import './ResultadoBusqueda.css';
 import CuadroAgricultor from './CuadroAgricultor';
+import { useState, useEffect } from 'react';
 
 const ResultadoBusqueda = ({ agricultores }) => {
+  const [listaAgricultores, setListaAgricultores] = useState(agricultores);
+
+  useEffect(() => {
+    setListaAgricultores(agricultores);
+  }, [agricultores]);
+
+  const manejarAgricultorDesasociado = (idDesasociado) => {
+    setListaAgricultores(prev => prev.filter(a => a.id !== idDesasociado));
+  };
+
   return (
     <div className="resultado-busqueda">
-      {agricultores.length === 0 ? (
+      {listaAgricultores.length === 0 ? (
         <p>No hay agricultores para mostrar.</p>
       ) : (
-        agricultores.map((agri) => (
-          <CuadroAgricultor key={agri.id} agricultor={agri} />
+        listaAgricultores.map((agri) => (
+          <CuadroAgricultor
+            key={agri.id}
+            agricultor={agri}
+            onDesasociar={manejarAgricultorDesasociado}
+          />
         ))
       )}
     </div>

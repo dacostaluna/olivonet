@@ -40,3 +40,43 @@
   margin: 4px 0;
   color: #555;
 }
+.botones-agricultor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-right: 10px;
+}
+
+.boton-agricultor {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 20%;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  padding-top: 6px;
+  transition: background 0.3s;
+}
+
+.boton-agricultor.añadir {
+  background-color: var(--color-primario);
+  /*background-color: #4caf50;*/
+}
+
+.boton-agricultor.añadir:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.boton-agricultor.eliminar {
+  background-color: #ffffff;
+  color:#f44336;
+  border-color: #f44336;
+  border-style: solid;
+}
+
+.boton-agricultor.eliminar:hover {
+  background-color: #d32f2f;
+  border-color: #d32f2f;
+  color:white;
+}

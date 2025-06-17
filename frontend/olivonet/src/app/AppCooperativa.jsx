@@ -7,6 +7,7 @@ import EncabezadoCooperativa from "../inicio/cooperativa/EncabezadoCooperativa.j
 import "./AppCooperativa.css";
 import logo from "../assets/olivonet-icon3.png";
 import InicioCooperativa from "../inicio/cooperativa/InicioCooperativa.jsx";
+import CosechasAgricultor from "../cosechas/CosechasAgricultor";
 
 const Dashboard = () => <h2>Panel de Cooperativa</h2>;
 const Productos = () => <h2>Gestión de Productos</h2>;
@@ -60,15 +61,15 @@ const AppCooperativa = () => {
 
   return (
     <div className="app-coop-container">
-      <div className="contenedor-cerrar-sesion-coop">
-        <BotonLogout />
-        <a>Cerrar sesión</a>
-      </div>
       <div className="barra-arriba-coop">
         <div className="cabecera-cooperativa">
           <img src={logo} alt="Logo" className="logo-menu-coop" />
           <div className="encabezado-wrapper">
             <EncabezadoCooperativa id={idCooperativa} />
+          </div>
+          <div className="contenedor-cerrar-sesion-coop">
+            <BotonLogout />
+            <a>Cerrar sesión</a>
           </div>
         </div>
       </div>
@@ -77,6 +78,7 @@ const AppCooperativa = () => {
         <Routes>
           <Route path="inicio" element={<InicioCooperativa />} />
           <Route path="productos" element={<Productos />} />
+          <Route path="/cosechas/:id" element={<CosechasAgricultor />} />
         </Routes>
       </div>
     </div>

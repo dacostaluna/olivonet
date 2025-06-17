@@ -191,6 +191,32 @@ const asociarAgricultor = async (req, res) => {
   }
 };
 
+const desasociarAgricultor = async (req, res) => {
+  const agricultorId = parseInt(req.params.id);
+
+  try {
+    const agricultor = await prisma.agricultor.findUnique({
+      where: { id: agricultorId }
+    });
+
+    if (!agricultor) {
+      return res.status(404).json({ message: "Agricultor no encontrado" });
+    }
+
+    // Desasociar
+    await prisma.agricultor.update({
+      where: { id: agricultorId },
+      data: { cooperativaId: null }
+    });
+
+    res.status(200).json({ message: "Agricultor desasociado correctamente" });
+  } catch (error) {
+    console.error("Error al desasociar agricultor:", error);
+    res.status(500).json({ message: "Error al desasociar agricultor" });
+  }
+};
+
+
 module.exports = {
   obtenerPerfilCooperativa,
   actualizarCooperativa,
@@ -198,5 +224,6 @@ module.exports = {
   borrarCooperativa,
   obtenerAgricultores,
   buscarAgricultor,
-  asociarAgricultor
+  asociarAgricultor,
+  desasociarAgricultor
 };
