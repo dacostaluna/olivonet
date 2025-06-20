@@ -11,7 +11,11 @@ const {
   obtenerAgricultores,
   buscarAgricultor,
   asociarAgricultor,
-  desasociarAgricultor
+  desasociarAgricultor,
+  obtenerCosechas,
+  crearCosecha,
+  eliminarCosecha,
+  obtenerPropiedades
 } = require("../controllers/cooperativaController");
 
 const authMiddlewareCooperativa = require("../middlewares/authMiddlewareCooperativa");
@@ -25,6 +29,12 @@ router.get("/obtenerAgricultores", authMiddlewareCooperativa, obtenerAgricultore
 router.get("/buscarAgricultor/:termino", authMiddlewareCooperativa, buscarAgricultor);
 router.post("/asociarAgricultor", authMiddlewareCooperativa, asociarAgricultor);
 router.put('/desasociar/:id', authMiddlewareCooperativa, desasociarAgricultor);
+
+router.get('/obtenerCosechas/:idAgricultor', authMiddlewareCooperativa, obtenerCosechas);
+router.post('/crearCosecha', authMiddlewareCooperativa, crearCosecha);
+router.delete('/borrarCosecha/:idCosecha', authMiddlewareCooperativa, eliminarCosecha);
+
+router.get('/obtenerPropiedades/:idAgricultor', authMiddlewareCooperativa, obtenerPropiedades);
 
 
 module.exports = router;

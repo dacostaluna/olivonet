@@ -9,6 +9,7 @@
 
   --color-primario: #6a8e23;
   --color-primario-hover: #58741b;
+  --color-primario-claro: #8fbf3a;
 
   --color-primario-trans: #6a8e23c5;
   --color-primario-hover-trans: #58741be3;
@@ -18,6 +19,8 @@
 
   --color-terciario: #96c930;
 
+
+  --color-cuarto: rgb(157, 208, 148);
 
   --color-hover: #b0b0b030;
 

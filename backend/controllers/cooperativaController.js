@@ -216,6 +216,186 @@ const desasociarAgricultor = async (req, res) => {
   }
 };
 
+const obtenerCosechas = async (req, res) => {
+  const cooperativaId = req.cooperativaId;
+  const idAgricultor = parseInt(req.params.idAgricultor);
+  let temporada = req.query.temporada;
+
+  try {
+    // Verificar si el agricultor pertenece a esta cooperativa
+    const agricultor = await prisma.agricultor.findUnique({
+      where: { id: idAgricultor },
+      select: { cooperativaId: true }
+    });
+
+    if (!agricultor || agricultor.cooperativaId !== cooperativaId) {
+      return res.status(403).json({ message: "Agricultor no encontrado" });
+    }
+
+    // Si no se ha especificado la temporada, buscar la más reciente con cosecha
+    if (!temporada) {
+      const ultimaCosecha = await prisma.cosecha.findFirst({
+        where: { idAgricultor },
+        orderBy: { temporada: 'desc' },
+        select: { temporada: true }
+      });
+
+      // Si no hay cosechas registradas
+      if (!ultimaCosecha) {
+        return res.status(200).json([]);
+      }
+
+      temporada = ultimaCosecha.temporada;
+    }
+
+    // Buscar cosechas del agricultor para esa temporada
+    const cosechas = await prisma.cosecha.findMany({
+      where: {
+        idAgricultor,
+        temporada: parseInt(temporada)
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    res.status(200).json(cosechas);
+  } catch (error) {
+    console.error("Error obteniendo cosechas:", error);
+    res.status(500).json({ message: "Error al obtener las cosechas." });
+  }
+};
+
+const crearCosecha = async (req, res) => {
+  const cooperativaId = req.cooperativaId;
+  const {
+    idAgricultor,
+    idPropiedad,
+    fecha,
+    kg,
+    rendimiento,
+    numOlivos,
+    temporada
+  } = req.body;
+
+  // Validar que idAgricultor y temporada existan
+  if (!idAgricultor || !temporada || !fecha || !kg || !numOlivos) {
+    return res.status(400).json({ message: "Faltan campos obligatorios." });
+  }
+
+  try {
+    // 1. Verificar que el agricultor existe y pertenece a la cooperativa
+    const agricultor = await prisma.agricultor.findUnique({
+      where: { id: idAgricultor },
+      select: { cooperativaId: true }
+    });
+
+    if (!agricultor || agricultor.cooperativaId !== cooperativaId) {
+      return res.status(403).json({ message: "No tienes acceso a este agricultor." });
+    }
+
+    // 2. (Opcional) Verificar que la propiedad pertenece al agricultor
+    if (idPropiedad) {
+      const propiedad = await prisma.propiedad.findUnique({
+        where: { id: idPropiedad },
+        select: { idPropietario: true }
+      });
+
+      if (!propiedad || propiedad.idPropietario !== idAgricultor) {
+        return res.status(400).json({ message: "La propiedad no pertenece al agricultor." });
+      }
+    }
+
+    // 3. Crear la cosecha
+    const nuevaCosecha = await prisma.cosecha.create({
+      data: {
+        idAgricultor,
+        idPropiedad: idPropiedad || null,
+        fecha: new Date(fecha),
+        kg: parseFloat(req.body.kg),
+        rendimiento: req.body.rendimiento ? parseFloat(req.body.rendimiento) : null,
+        numOlivos,
+        temporada
+      }
+    });
+
+    res.status(201).json(nuevaCosecha);
+
+  } catch (error) {
+    console.error("Error creando cosecha:", error);
+    res.status(500).json({ message: "Error al crear la cosecha." });
+  }
+};
+
+
+const eliminarCosecha = async (req, res) => {
+  const cooperativaId = req.cooperativaId;
+  const cosechaId = parseInt(req.params.idCosecha);
+
+  try {
+    // Buscar la cosecha y obtener su agricultor
+    const cosecha = await prisma.cosecha.findUnique({
+      where: { id: cosechaId },
+      select: {
+        id: true,
+        idAgricultor: true,
+        agricultor: {
+          select: { cooperativaId: true }
+        }
+      }
+    });
+
+    if (!cosecha) {
+      return res.status(404).json({ message: "Cosecha no encontrada." });
+    }
+
+    // Verificar que la cosecha pertenece a un agricultor de la cooperativa actual
+    if (cosecha.agricultor.cooperativaId !== cooperativaId) {
+      return res.status(403).json({ message: "No tienes permiso para eliminar esta cosecha." });
+    }
+
+    // Eliminar la cosecha
+    await prisma.cosecha.delete({
+      where: { id: cosechaId }
+    });
+
+    res.status(200).json({ message: "Cosecha eliminada correctamente." });
+  } catch (error) {
+    console.error("Error eliminando cosecha:", error);
+    res.status(500).json({ message: "Error al eliminar la cosecha." });
+  }
+};
+
+const obtenerPropiedades = async (req, res) => {
+  const cooperativaId = req.cooperativaId;
+  const agricultorId = parseInt(req.params.idAgricultor);
+
+  try {
+    // Verificar que el agricultor pertenece a esta cooperativa
+    const agricultor = await prisma.agricultor.findUnique({
+      where: { id: agricultorId },
+      select: { cooperativaId: true }
+    });
+
+    if (!agricultor || agricultor.cooperativaId !== cooperativaId) {
+      return res.status(403).json({ message: "No tienes acceso a este agricultor." });
+    }
+
+    // Obtener propiedades del agricultor
+    const propiedades = await prisma.propiedad.findMany({
+      where: {
+        idPropietario: agricultorId
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    res.status(200).json(propiedades);
+  } catch (error) {
+    console.error("Error obteniendo propiedades:", error);
+    res.status(500).json({ message: "Error al obtener las propiedades." });
+  }
+};
+
+
+
 
 module.exports = {
   obtenerPerfilCooperativa,
@@ -225,5 +405,9 @@ module.exports = {
   obtenerAgricultores,
   buscarAgricultor,
   asociarAgricultor,
-  desasociarAgricultor
+  desasociarAgricultor,
+  obtenerCosechas,
+  crearCosecha,
+  eliminarCosecha,
+  obtenerPropiedades
 };

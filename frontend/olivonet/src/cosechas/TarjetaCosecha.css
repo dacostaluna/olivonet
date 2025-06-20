@@ -1,0 +1,59 @@
+.tarjeta-cosecha {
+  border: 1px solid #ccc;
+  box-shadow: 8px 8px 14px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  width: 90%;
+  position: relative;
+  justify-self: center;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+.tarjeta-cosecha p{
+    margin: 0.5rem 1rem;
+}
+
+
+.fecha-cosecha {
+  margin-bottom: 0.8rem;
+  font-size: 1.6rem;
+  color: var(--color-secundario);
+}
+
+.contenido-cosecha {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 1.5rem;
+}
+
+.contenido-cosecha strong {
+  font-weight: bold;
+  color: var(--color-primario-hover);
+  font-size: 2rem;
+
+}
+
+.columna-cosecha {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+
+.btn-eliminar-cosecha {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  top:1.5rem;
+  right: 1.5rem;
+  cursor: pointer;
+}
+
+
+
+.btn-eliminar-cosecha:hover {
+  background-color: #c9302c;
+}

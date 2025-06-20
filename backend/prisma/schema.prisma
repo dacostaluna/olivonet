@@ -21,6 +21,8 @@ model Agricultor {
 
   cooperativaId     Int?
   cooperativa       Cooperativa? @relation(fields: [cooperativaId], references: [id])
+
+  cosechas          Cosecha[]
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
 }
@@ -64,9 +66,32 @@ model Propiedad {
     variedad        String?
     edadOlivos      Int?
 
+    cosechas        Cosecha[]
+
     idPropietario   Int
     propietario     Agricultor    @relation(fields: [idPropietario], references: [id])
 
     createdAt       DateTime     @default(now())
     updatedAt       DateTime     @updatedAt
+}
+
+
+model Cosecha {
+
+  id              Int          @id @default(autoincrement())
+  fecha           DateTime
+  kg              Decimal
+  rendimiento     Decimal?
+  numOlivos       Int
+  temporada       Int
+
+
+  idAgricultor    Int
+  agricultor      Agricultor   @relation(fields: [idAgricultor], references: [id])
+
+  idPropiedad     Int?
+  propiedad       Propiedad?    @relation(fields: [idPropiedad], references: [id], onDelete: SetNull)
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }
