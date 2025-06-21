@@ -1,0 +1,27 @@
+.titulo-cosechas-agricultor-coop{
+    font-size: 1.7rem;
+    color: var(--color-primario-hover);
+}
+
+.info-no-agricultor-cosechas{
+    font-size: 1.1rem;
+    justify-self: center;
+}
+
+.cosechas-agricultor-principal-coop{
+    width: 70%;
+    justify-self: center;
+}
+
+.btn-flotante-cosechas {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+}

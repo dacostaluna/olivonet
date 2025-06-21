@@ -235,6 +235,10 @@ const obtenerPropiedadPorId = async (req, res) => {
   try {
     const { id } = req.params;
 
+     if (!id || isNaN(parseInt(id))) {
+      return;
+    }
+
     const propiedad = await prisma.propiedad.findFirst({
       where: {
         id: parseInt(id),

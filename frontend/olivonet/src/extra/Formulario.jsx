@@ -13,6 +13,7 @@ const Formulario = ({
   esArea = false,
   opciones = [],
   disabled = false,
+  mensajeInicial = 'Selecciona la variedad de aceituna',
 }) => {
   const id = texto.toLowerCase().replace(/\s+/g, '-');
   const style = {};
@@ -22,7 +23,6 @@ const Formulario = ({
   const esCheckbox = type === 'checkbox';
   const labelClass = esCheckbox ? 'formulario-horizontal' : '';
 
-  // Elimina placeholder si está desactivado
   const inputPlaceholder = disabled ? '' : placeholder;
 
   return (
@@ -38,7 +38,7 @@ const Formulario = ({
           className="form-control"
           disabled={disabled}
         >
-          <option value="">Selecciona la variedad de aceituna</option>
+          <option value="">{mensajeInicial}</option>
           {opciones.map((op, i) => (
             <option key={i} value={op}>{op}</option>
           ))}

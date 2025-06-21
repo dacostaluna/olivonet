@@ -1,0 +1,84 @@
+.info-agricultor-cosechas {
+  border: 1px solid #ccc;
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-self: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.foto-container-cosechas {
+  flex-shrink: 0;
+}
+
+.foto-perfil-cosechas{
+    width: 10rem;
+    height: 10rem;
+}
+
+.contenido-cosechas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.datos-numeros-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* que los números queden arriba también */
+}
+
+.datos-container-cosechas {
+  display: flex;
+  flex: 1;
+  font-size: 1.1rem;
+  gap:15px;
+  margin-right: 5rem;
+}
+
+.datos-container-cosechas strong{
+    color: var(--color-primario);
+}
+
+.columna-cosechas {
+  flex: 1;
+}
+
+.numeros-cosechas-propiedades {
+  font-weight: bold;
+  color: var(--color-secundario);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  white-space: nowrap;
+  min-width: 160px;
+  text-align: right;
+  bottom: 0.7rem;
+  position: relative;
+}
+
+
+.numeros-cosechas-propiedades p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  margin-bottom: 0rem;
+}
+
+.numero-cosechas {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--color-secundario); /* color oscuro para destacar el número */
+}
+
+.texto-cosechas {
+  font-size: 1.1rem;
+  color: #555; /* color más suave para el texto */
+}

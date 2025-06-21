@@ -126,15 +126,28 @@ const buscarAgricultor = async (req, res) => {
     const idCooperativa = req.cooperativaId;
     const termino = req.params.termino;
 
-    const agricultor = await prisma.agricultor.findFirst({
-      where: {
-        cooperativaId: idCooperativa,
-        OR: [
-          { correo: termino },
-          { dni: termino }
-        ]
-      }
-    });
+    let agricultor;
+
+    // Si el término parece un ID numérico (ajusta si usas UUIDs)
+    if (!isNaN(termino)) {
+      agricultor = await prisma.agricultor.findFirst({
+        where: {
+          id: Number(termino),
+          cooperativaId: idCooperativa,
+        },
+      });
+    } else {
+      // Búsqueda por correo o DNI (comportamiento original)
+      agricultor = await prisma.agricultor.findFirst({
+        where: {
+          cooperativaId: idCooperativa,
+          OR: [
+            { correo: termino },
+            { dni: termino }
+          ]
+        }
+      });
+    }
 
     if (!agricultor) {
       return res.status(404).json({ message: "Agricultor no encontrado" });
@@ -146,6 +159,7 @@ const buscarAgricultor = async (req, res) => {
     res.status(500).json({ message: "Error interno del servidor" });
   }
 };
+
 
 
 

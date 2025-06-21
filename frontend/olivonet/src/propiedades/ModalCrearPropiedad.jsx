@@ -178,14 +178,6 @@ const ModalCrearPropiedad = ({ onCerrar, onCrearExito }) => {
                 />
               </div>
 
-              <Formulario
-                texto="Coordenadas"
-                placeholder="Latitud, longitud"
-                value={nuevaPropiedad.coordenadas}
-                onChange={handleInputChange("coordenadas")}
-                required
-              />
-
               <div className="riego-contenedor">
                 <Formulario
                   texto="¿Tiene Riego?"
@@ -235,7 +227,7 @@ const ModalCrearPropiedad = ({ onCerrar, onCrearExito }) => {
                 texto="Descripción"
                 value={nuevaPropiedad.descripcion}
                 onChange={handleInputChange("descripcion")}
-                height="8rem"
+                height="1.7rem"
                 esArea={true}
               />
             </div>

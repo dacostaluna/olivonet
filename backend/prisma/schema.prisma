@@ -12,7 +12,7 @@ model Agricultor {
   nombre            String
   apellidos         String
   correo            String      @unique
-  dni               String
+  dni               String      @unique
   username          String      @unique
   fechaNacimiento   DateTime
   password          String

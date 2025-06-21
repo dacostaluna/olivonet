@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import TarjetaCosecha from "./TarjetaCosecha";
+import Formulario from "../extra/Formulario";
+
 import "./CuadroCosechas.css";
 
 const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
@@ -91,42 +93,43 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
             String(c.temporada).trim() === String(temporadaSeleccionada).trim()
         );
 
-  return (
-    <div>
-      < div className="contenedor-principal-cosechas">
-        <div className="filtro-temporada">
-          <label>Filtrar por temporada: </label>
-          <select
-            value={temporadaSeleccionada}
-            onChange={(e) => setTemporadaSeleccionada(e.target.value)}
-          >
-            <option value="Todas">Todas</option>
-            {temporadas.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="cosechas-container">
-          {cosechasFiltradas.length === 0 ? (
-            <p className="mensaje-vacio">No hay cosechas para mostrar.</p>
-          ) : (
-            <div className="grid-cosechas">
-              {cosechasFiltradas.map((cosecha) => (
-                <TarjetaCosecha
-                  key={cosecha.id}
-                  cosecha={cosecha}
-                  usuario={usuario}
-                  actualizarCosechas={fetchTodasCosechas}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+return (
+  <div>
+    <div className="filtro-temporada">
+      <div className="filtro-temporada">
+        <Formulario
+          texto="Filtrar por temporada"
+          type="select"
+          value={temporadaSeleccionada}
+          onChange={(e) => setTemporadaSeleccionada(e.target.value)}
+          opciones={["Todas", ...temporadas]}
+          width="15rem"
+          mensajeInicial="Selecciona una temporada"
+        />
       </div>
     </div>
-  );
+
+    <div className="cosechas-container">
+      {cosechasFiltradas.length === 0 ? (
+        <p className="mensaje-vacio">No hay cosechas para mostrar.</p>
+      ) : (
+        <div className="grid-cosechas">
+          {[...cosechasFiltradas]
+            .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+            .map((cosecha) => (
+              <TarjetaCosecha
+                key={cosecha.id}
+                cosecha={cosecha}
+                usuario={usuario}
+                actualizarCosechas={fetchTodasCosechas}
+              />
+            ))}
+        </div>
+      )}
+    </div>
+  </div>
+);
+
 };
 
 export default CuadroCosechas;
