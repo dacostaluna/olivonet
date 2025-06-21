@@ -18,7 +18,11 @@ const CosechasAgricultor = () => {
   }
 
   const [modalVisible, setModalVisible] = useState(false);
-  
+  const [refreshCount, setRefreshCount] = useState(0);
+
+  const handleNuevaCosecha = () => {
+    setRefreshCount((c) => c + 1);
+  };
 
   return (
     <div className="cosechas-agricultor-principal-coop">
@@ -32,8 +36,12 @@ const CosechasAgricultor = () => {
           urlBase={`http://localhost:5000/cooperativa/obtenerCosechas/${agricultor.id}`}
           urlPropiedades={`http://localhost:5000/cooperativa/obtenerPropiedades/${agricultor.id}`}
           usuario="coop"
+          refresh={refreshCount}
         />
-        <button className="boton-flotante-asociar btn-flotante-cosechas" onClick={() => setModalVisible(true)}>
+        <button
+          className="boton-flotante-asociar btn-flotante-cosechas"
+          onClick={() => setModalVisible(true)}
+        >
           +
         </button>
 
@@ -41,6 +49,7 @@ const CosechasAgricultor = () => {
           agricultorId={agricultor.id}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
+          onAdd={handleNuevaCosecha}
         />
       </div>
     </div>

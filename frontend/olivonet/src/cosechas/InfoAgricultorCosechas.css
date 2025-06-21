@@ -32,7 +32,7 @@
 .datos-numeros-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* que los números queden arriba también */
+  align-items: flex-start;
 }
 
 .datos-container-cosechas {
@@ -75,10 +75,14 @@
 .numero-cosechas {
   font-weight: bold;
   font-size: 1.5rem;
-  color: var(--color-secundario); /* color oscuro para destacar el número */
+  color: var(--color-secundario); 
 }
 
 .texto-cosechas {
   font-size: 1.1rem;
-  color: #555; /* color más suave para el texto */
+  color: #555; 
+}
+
+.nombre-apellidos-cosechas{
+  color: var(--color-primario-hover);
 }

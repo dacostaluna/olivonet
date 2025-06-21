@@ -16,7 +16,7 @@ const ResultadoBusqueda = ({ agricultores }) => {
   return (
     <div className="resultado-busqueda">
       {listaAgricultores.length === 0 ? (
-        <p>No hay agricultores para mostrar.</p>
+        <p className='no-agricultores-encontrados'>No hay agricultores para mostrar.</p>
       ) : (
         listaAgricultores.map((agri) => (
           <CuadroAgricultor

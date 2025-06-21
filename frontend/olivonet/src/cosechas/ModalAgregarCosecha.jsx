@@ -3,7 +3,7 @@ import Formulario from "../extra/Formulario";
 import Mensaje from "../extra/Mensaje";
 import "./ModalAgregarCosecha.css";
 
-const ModalAgregarCosecha = ({ agricultorId, visible, onClose }) => {
+const ModalAgregarCosecha = ({ agricultorId, visible, onClose, onAdd }) => {
   const [fecha, setFecha] = useState("");
   const [kilos, setKilos] = useState("");
   const [rendimiento, setRendimiento] = useState("");
@@ -38,7 +38,6 @@ const ModalAgregarCosecha = ({ agricultorId, visible, onClose }) => {
       (p) => p.nombre === propiedad
     );
 
-    // Validar que todos los campos estén rellenos
     if (
       !agricultorId ||
       !propiedadSeleccionada ||
@@ -53,7 +52,6 @@ const ModalAgregarCosecha = ({ agricultorId, visible, onClose }) => {
       return;
     }
 
-    // Preparar el objeto para enviar
     const nuevaCosecha = {
       idAgricultor: agricultorId,
       idPropiedad: propiedadSeleccionada.id,
@@ -66,7 +64,6 @@ const ModalAgregarCosecha = ({ agricultorId, visible, onClose }) => {
 
     const token = localStorage.getItem("token");
 
-    // Enviar al backend
     fetch("http://localhost:5000/cooperativa/crearCosecha", {
       method: "POST",
       headers: {
@@ -83,6 +80,7 @@ const ModalAgregarCosecha = ({ agricultorId, visible, onClose }) => {
         console.log("Cosecha guardada:", data);
         setMensaje("Cosecha creada correctamente.");
         setTipoMensaje("exito");
+        onAdd();
 
         setTimeout(() => {
           setMensaje("");
@@ -166,7 +164,6 @@ const ModalAgregarCosecha = ({ agricultorId, visible, onClose }) => {
           Crear cosecha
         </button>
 
-        {/* Mensaje justo debajo del botón */}
         <Mensaje tipo={tipoMensaje} texto={mensaje} />
       </div>
     </div>

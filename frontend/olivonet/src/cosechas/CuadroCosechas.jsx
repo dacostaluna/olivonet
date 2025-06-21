@@ -4,7 +4,7 @@ import Formulario from "../extra/Formulario";
 
 import "./CuadroCosechas.css";
 
-const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
+const CuadroCosechas = ({ urlBase, urlPropiedades, usuario, refresh }) => {
   const [cosechas, setCosechas] = useState([]);
   const [temporadas, setTemporadas] = useState([]);
   const [temporadaSeleccionada, setTemporadaSeleccionada] = useState("Todas");
@@ -25,7 +25,6 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) {
-      // No pasa nada si no hay datos para esa temporada, devolvemos []
       return [];
     }
     return await res.json();
@@ -44,14 +43,12 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
       const currentYear = new Date().getFullYear();
       const cosechasTotales = [];
 
-      // Hacemos peticiones paralelas (puede ser lento si hay muchas temporadas, ajustar si quieres)
       const promesas = [];
       for (let año = 2000; año <= currentYear; año++) {
         promesas.push(fetchCosechasPorTemporada(año, token));
       }
       const resultados = await Promise.all(promesas);
 
-      // Aplanar resultados y asignar nombrePropiedad
       for (const listaCosechas of resultados) {
         for (const c of listaCosechas) {
           cosechasTotales.push({
@@ -63,14 +60,13 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
 
       setCosechas(cosechasTotales);
 
-      // Extraer temporadas únicas
       const temporadasUnicas = [
         ...new Set(
           cosechasTotales
             .map((c) => String(c.temporada).trim())
             .filter((t) => t !== "")
         ),
-      ].sort((a, b) => b - a); // ordenar descendente para ver las últimas primero
+      ].sort((a, b) => b - a);
 
       setTemporadas(temporadasUnicas);
     } catch (err) {
@@ -82,9 +78,8 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
 
   useEffect(() => {
     fetchTodasCosechas();
-  }, [urlBase, urlPropiedades]);
+  }, [urlBase, urlPropiedades, refresh]);
 
-  // Filtrar cosechas según temporadaSeleccionada
   const cosechasFiltradas =
     temporadaSeleccionada === "Todas"
       ? cosechas
@@ -93,43 +88,42 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario }) => {
             String(c.temporada).trim() === String(temporadaSeleccionada).trim()
         );
 
-return (
-  <div>
-    <div className="filtro-temporada">
+  return (
+    <div>
       <div className="filtro-temporada">
-        <Formulario
-          texto="Filtrar por temporada"
-          type="select"
-          value={temporadaSeleccionada}
-          onChange={(e) => setTemporadaSeleccionada(e.target.value)}
-          opciones={["Todas", ...temporadas]}
-          width="15rem"
-          mensajeInicial="Selecciona una temporada"
-        />
+        <div className="filtro-temporada">
+          <Formulario
+            texto="Filtrar por temporada"
+            type="select"
+            value={temporadaSeleccionada}
+            onChange={(e) => setTemporadaSeleccionada(e.target.value)}
+            opciones={["Todas", ...temporadas]}
+            width="15rem"
+            mensajeInicial="Selecciona una temporada"
+          />
+        </div>
+      </div>
+
+      <div className="cosechas-container">
+        {cosechasFiltradas.length === 0 ? (
+          <p className="mensaje-vacio">No hay cosechas para mostrar.</p>
+        ) : (
+          <div className="grid-cosechas">
+            {[...cosechasFiltradas]
+              .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+              .map((cosecha) => (
+                <TarjetaCosecha
+                  key={cosecha.id}
+                  cosecha={cosecha}
+                  usuario={usuario}
+                  actualizarCosechas={fetchTodasCosechas}
+                />
+              ))}
+          </div>
+        )}
       </div>
     </div>
-
-    <div className="cosechas-container">
-      {cosechasFiltradas.length === 0 ? (
-        <p className="mensaje-vacio">No hay cosechas para mostrar.</p>
-      ) : (
-        <div className="grid-cosechas">
-          {[...cosechasFiltradas]
-            .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
-            .map((cosecha) => (
-              <TarjetaCosecha
-                key={cosecha.id}
-                cosecha={cosecha}
-                usuario={usuario}
-                actualizarCosechas={fetchTodasCosechas}
-              />
-            ))}
-        </div>
-      )}
-    </div>
-  </div>
-);
-
+  );
 };
 
 export default CuadroCosechas;

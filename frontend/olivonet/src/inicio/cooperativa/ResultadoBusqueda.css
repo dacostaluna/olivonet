@@ -6,3 +6,10 @@
   border-radius: 0.5rem;
   max-height: 30rem;
 }
+
+.no-agricultores-encontrados{
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
