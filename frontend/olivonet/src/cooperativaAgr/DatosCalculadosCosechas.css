@@ -1,0 +1,29 @@
+.cuadros-datos-agricultor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.cuadros-datos-agricultor.fila {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; 
+  justify-content: space-between; 
+  gap: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+
+.cuadros-datos-agricultor.cuadricula {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .cuadros-datos-agricultor.cuadricula {
+    grid-template-columns: 1fr;
+  }
+}

@@ -4,15 +4,21 @@ import Formulario from "../extra/Formulario";
 
 import "./CuadroCosechas.css";
 
-const CuadroCosechas = ({ urlBase, urlPropiedades, usuario, refresh }) => {
+const CuadroCosechas = ({ urlBase, urlPropiedades, usuario, tipoUsuario, refresh }) => {
   const [cosechas, setCosechas] = useState([]);
   const [temporadas, setTemporadas] = useState([]);
   const [temporadaSeleccionada, setTemporadaSeleccionada] = useState("Todas");
 
   const fetchPropiedades = async (token) => {
-    const resPropiedades = await fetch(urlPropiedades, {
+    const endpoint =
+      tipoUsuario === "coop"
+        ? urlPropiedades
+        : "http://localhost:5000/mis-propiedades";
+
+    const resPropiedades = await fetch(endpoint, {
       headers: { Authorization: `Bearer ${token}` },
     });
+
     if (!resPropiedades.ok) throw new Error("Error al obtener propiedades");
     return await resPropiedades.json();
   };
@@ -24,9 +30,7 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario, refresh }) => {
     const res = await fetch(urlTemporada, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    if (!res.ok) {
-      return [];
-    }
+    if (!res.ok) return [];
     return await res.json();
   };
 
@@ -47,6 +51,7 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario, refresh }) => {
       for (let año = 2000; año <= currentYear; año++) {
         promesas.push(fetchCosechasPorTemporada(año, token));
       }
+
       const resultados = await Promise.all(promesas);
 
       for (const listaCosechas of resultados) {
@@ -78,30 +83,29 @@ const CuadroCosechas = ({ urlBase, urlPropiedades, usuario, refresh }) => {
 
   useEffect(() => {
     fetchTodasCosechas();
-  }, [urlBase, urlPropiedades, refresh]);
+  }, [urlBase, urlPropiedades, tipoUsuario, refresh]);
 
   const cosechasFiltradas =
     temporadaSeleccionada === "Todas"
       ? cosechas
       : cosechas.filter(
           (c) =>
-            String(c.temporada).trim() === String(temporadaSeleccionada).trim()
+            String(c.temporada).trim() ===
+            String(temporadaSeleccionada).trim()
         );
 
   return (
     <div>
       <div className="filtro-temporada">
-        <div className="filtro-temporada">
-          <Formulario
-            texto="Filtrar por temporada"
-            type="select"
-            value={temporadaSeleccionada}
-            onChange={(e) => setTemporadaSeleccionada(e.target.value)}
-            opciones={["Todas", ...temporadas]}
-            width="15rem"
-            mensajeInicial="Selecciona una temporada"
-          />
-        </div>
+        <Formulario
+          texto="Filtrar por temporada"
+          type="select"
+          value={temporadaSeleccionada}
+          onChange={(e) => setTemporadaSeleccionada(e.target.value)}
+          opciones={["Todas", ...temporadas]}
+          width="15rem"
+          mensajeInicial="Selecciona una temporada"
+        />
       </div>
 
       <div className="cosechas-container">

@@ -311,7 +311,40 @@ const actualizarPropiedad = async (req, res) => {
   }
 };
 
+const obtenerCooperativaDeAgricultor = async (req, res) => {
+  try {
+    const idAgricultor = req.userId;
 
+    const agricultor = await prisma.agricultor.findUnique({
+      where: { id: idAgricultor },
+      include: {
+        cooperativa: true,
+      },
+    });
+
+    if (!agricultor) {
+      return res.status(404).json({ mensaje: "Agricultor no encontrado" });
+    }
+
+    if (!agricultor.cooperativa) {
+      return res.status(404).json({ mensaje: "El agricultor no está asociado a ninguna cooperativa" });
+    }
+
+    const { id, nombre, correo, direccion, nif, fotoPerfil } = agricultor.cooperativa;
+
+    res.status(200).json({
+      id,
+      nombre,
+      correo,
+      direccion,
+      nif,
+      fotoPerfil,
+    });
+  } catch (error) {
+    console.error("Error al obtener cooperativa del agricultor:", error);
+    res.status(500).json({ mensaje: "Error interno del servidor" });
+  }
+};
 
 
 const borrarPropiedad = async (req, res) => {
@@ -340,6 +373,41 @@ const borrarPropiedad = async (req, res) => {
   }
 };
 
+const obtenerCosechas = async (req, res) => {
+  const idAgricultor = req.userId;
+  let temporada = req.query.temporada;
+
+  try {
+    // Si no se ha especificado la temporada, buscar la más reciente
+    if (!temporada) {
+      const ultimaCosecha = await prisma.cosecha.findFirst({
+        where: { idAgricultor },
+        orderBy: { temporada: 'desc' },
+        select: { temporada: true }
+      });
+
+      if (!ultimaCosecha) {
+        return res.status(200).json([]); // sin cosechas
+      }
+
+      temporada = ultimaCosecha.temporada;
+    }
+
+    // Obtener cosechas del agricultor para esa temporada
+    const cosechas = await prisma.cosecha.findMany({
+      where: {
+        idAgricultor,
+        temporada: parseInt(temporada)
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    res.status(200).json(cosechas);
+  } catch (error) {
+    console.error("Error al obtener las cosechas del agricultor:", error);
+    res.status(500).json({ message: "Error al obtener las cosechas." });
+  }
+};
 
 
 module.exports = {
@@ -351,5 +419,7 @@ module.exports = {
   crearPropiedad,
   borrarPropiedad,
   actualizarPropiedad,
-  obtenerPropiedadPorId
+  obtenerPropiedadPorId,
+  obtenerCooperativaDeAgricultor,
+  obtenerCosechas
 };

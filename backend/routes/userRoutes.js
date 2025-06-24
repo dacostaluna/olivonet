@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { borrarUsuario, obtenerUsuario, actualizarPerfil, subirFotoPerfil, obtenerPropiedades, crearPropiedad, borrarPropiedad, actualizarPropiedad, obtenerPropiedadPorId} = require('../controllers/userController');
+const { borrarUsuario, obtenerUsuario, actualizarPerfil, subirFotoPerfil, obtenerPropiedades, crearPropiedad, borrarPropiedad, actualizarPropiedad, obtenerPropiedadPorId, obtenerCooperativaDeAgricultor, obtenerCosechas} = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const upload = require('../middlewares/multer');
 
@@ -25,6 +25,10 @@ router.post('/crear-propiedad', authMiddleware, crearPropiedad);
 router.delete('/eliminar-propiedad/:id', authMiddleware, borrarPropiedad);
 
 router.put('/actualizar-propiedad/:id', authMiddleware, actualizarPropiedad);
+
+router.get("/mi-cooperativa", authMiddleware, obtenerCooperativaDeAgricultor);
+
+router.get("/mis-cosechas", authMiddleware, obtenerCosechas);
 
 
 module.exports = router;

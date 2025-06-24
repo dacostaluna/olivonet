@@ -32,41 +32,12 @@
 }
 
 .logo-menu {
-  height: 100%;
-  margin-right: 20px;
+  height: 120%;
   object-fit: contain;
   flex: 1;
 }
 
-.barra-vertical {
-  width: 1px;
-  height: 40px;
-  background-color: var(--color-separador);
-  margin: 0 10px;
-}
 
-.boton-toggle-flotante {
-  position: fixed;
-  top: 20px;
-  left: 15px;
-  z-index: 1100;
-  background-color: var(--color-primario);
-  color: var(--color-blanco);
-  border: none;
-  font-size: 20px;
-  padding: 8px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: left 0.3s ease-in-out;
-}
-
-.boton-toggle-flotante.abierto {
-  left: 210px; /* Justo a la derecha del menú */
-}
-
-.boton-toggle-flotante:hover {
-  background-color: var(--color-primario-hover);
-}
 
 .separador-horizontal {
   border: none;
@@ -88,12 +59,24 @@
   display: flex;
   justify-content: space-evenly;
   position: absolute;
-  bottom: 10px;
+  bottom: 55px;
   left: 0;
   width: 100%;
   padding: 10px 0;
   background-color: var(--color-fondo-menu);
   border-top: 1px solid var(--color-borde-menu); /* Se puede eliminar */
+}
+
+.contenedor-boton-cerrar-sesion-agricultor{
+    position: absolute;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  border: 3px solid rgb(224, 224, 224);
+  padding: 0 2rem 0 0;
+  color: rgb(207, 2, 2);
 }
 
 .boton-simple {
@@ -123,7 +106,6 @@
   transition: filter 0.2s ease-in-out;
 }
 
-/* Botón específico de cerrar sesión */
 .boton-simple.cerrar-sesion {
   background-color: var(--color-transparente);
 }
@@ -133,5 +115,59 @@
 }
 
 .boton-simple.cerrar-sesion:hover img {
-  filter: brightness(0) invert(1); /* convierte la imagen a blanco */
+  filter: brightness(0) invert(1);
+}
+
+.boton-toggle-flotante {
+  position: fixed;
+  top: 72px;
+  z-index: 1100;
+
+  width: 34px;
+  height: 34px;
+  
+  background-color: var(--color-primario);
+  border: 2px solid var(--color-primario-hover);
+  border-radius: 50%;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition:
+    left 0.3s ease-in-out,
+    width 0.3s ease,
+    height 0.3s ease;
+}
+
+.icono-flecha {
+  height: 28px;
+  width: 28px;
+  /*filter: invert(43%) sepia(9%) saturate(4368%) hue-rotate(37deg) brightness(87%) contrast(79%);*/
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+  display: block;
+    transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.3s ease,
+    height 0.3s ease;
+  transform: rotate(180deg);
+
+}
+
+.icono-flecha.rotada {
+  transform: rotate(0deg);
+    width: 22px;
+  height: 22px;
+}
+
+.boton-toggle-flotante.abierto {
+  left: 240px;
+
+}
+
+.boton-toggle-flotante.cerrado {
+  left: 25px;
+  width: 42px;
+  height: 42px;
 }

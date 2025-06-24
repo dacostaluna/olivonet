@@ -11,9 +11,9 @@ import Perfil from "../perfil/Perfil.jsx";
 import Inicio from "../inicio/Inicio.jsx";
 import Propiedades from "../propiedades/Propiedades.jsx";
 import Propiedad from "../propiedades/Propiedad.jsx";
+import Cooperativa from "../cooperativaAgr/Cooperativa.jsx";
 import "./App.css";
 
-// Componente de layout principal con menú y contenido
 const AppLayout = () => {
   const [menuAbierto, setMenuAbierto] = useState(true);
   const [idPropiedadSeleccionada, setIdPropiedadSeleccionada] = useState(null);
@@ -46,6 +46,7 @@ const AppLayout = () => {
         <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/perfil" element={<Perfil />} />
+          <Route path="/cooperativa" element={<Cooperativa />} />
           <Route
             path="/propiedades"
             element={

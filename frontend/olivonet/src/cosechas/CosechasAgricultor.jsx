@@ -37,6 +37,7 @@ const CosechasAgricultor = () => {
           urlPropiedades={`http://localhost:5000/cooperativa/obtenerPropiedades/${agricultor.id}`}
           usuario="coop"
           refresh={refreshCount}
+          tipoUsuario="coop"
         />
         <button
           className="boton-flotante-asociar btn-flotante-cosechas"

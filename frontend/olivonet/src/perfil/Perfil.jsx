@@ -139,7 +139,7 @@ const Perfil = () => {
             {datosEditados.nombre} {datosEditados.apellidos}
           </h3>
           <p className="edad-perfil">
-            {calcularEdad(datosEditados.fechaNacimiento)} años
+            Agricultor
           </p>
         </div>
       </div>

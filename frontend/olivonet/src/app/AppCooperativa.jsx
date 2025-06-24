@@ -9,8 +9,6 @@ import logo from "../assets/olivonet-icon3.png";
 import InicioCooperativa from "../inicio/cooperativa/InicioCooperativa.jsx";
 import CosechasAgricultor from "../cosechas/CosechasAgricultor";
 
-const Dashboard = () => <h2>Panel de Cooperativa</h2>;
-const Productos = () => <h2>Gestión de Productos</h2>;
 
 const BotonLogout = () => {
   const navigate = useNavigate();
@@ -65,7 +63,7 @@ const AppCooperativa = () => {
         <div className="cabecera-cooperativa">
           <img src={logo} alt="Logo" className="logo-menu-coop" />
           <div className="encabezado-wrapper">
-            <EncabezadoCooperativa id={idCooperativa} />
+            <EncabezadoCooperativa tipoUsuario="cooperativa" />
           </div>
           <div className="contenedor-cerrar-sesion-coop">
             <BotonLogout />
@@ -77,7 +75,6 @@ const AppCooperativa = () => {
       <div className="contenido-cooperativa">
         <Routes>
           <Route path="inicio" element={<InicioCooperativa />} />
-          <Route path="productos" element={<Productos />} />
           <Route path="/cosechas/:id" element={<CosechasAgricultor />} />
         </Routes>
       </div>

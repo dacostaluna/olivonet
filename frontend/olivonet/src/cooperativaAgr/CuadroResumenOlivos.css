@@ -1,0 +1,27 @@
+.cuadro-datos-olivos div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.valor-olivos {
+  font-size: 1.4rem;
+  text-align: right;
+  margin: 0;
+}
+
+
+.texto-olivos {
+  font-size: 1.1rem;
+  text-align: left;
+  color: #555;
+
+}
+
+.linea-dato {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.2rem;
+}

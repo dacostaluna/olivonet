@@ -33,7 +33,7 @@ model Cooperativa {
   correo          String       @unique
   password        String
   direccion       String
-  nif             String
+  nif             String       @unique
   fotoPerfil      String?
   
   agricultores    Agricultor[]
@@ -52,27 +52,27 @@ model Administrador {
 }
 
 model Propiedad {
-    id              Int     @id @default(autoincrement())
-    nombre          String
-    superficie      Int
-    numOlivos       Int
-    
-    descripcion     String?
-    coordenadas     String?
-    direccion       String
-    color           String?
-    tieneRiego      Boolean?
-    numOlivosRiego  Int?
-    variedad        String?
-    edadOlivos      Int?
+  id              Int           @id @default(autoincrement())
+  nombre          String
+  superficie      Int
+  numOlivos       Int
+  
+  descripcion     String?
+  coordenadas     String?
+  direccion       String
+  color           String?
+  tieneRiego      Boolean?
+  numOlivosRiego  Int?
+  variedad        String?
+  edadOlivos      Int?
 
-    cosechas        Cosecha[]
+  cosechas        Cosecha[]
 
-    idPropietario   Int
-    propietario     Agricultor    @relation(fields: [idPropietario], references: [id])
+  idPropietario   Int
+  propietario     Agricultor@relation(fields: [idPropietario], references: [id])
 
-    createdAt       DateTime     @default(now())
-    updatedAt       DateTime     @updatedAt
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 
