@@ -8,6 +8,7 @@ const Inicio = () => {
   const [nombre, setNombre] = useState("");
   const [cosechas, setCosechas] = useState([]);
   const [propiedades, setPropiedades] = useState([]);
+  const [propiedadParaTiempo, setPropiedadParaTiempo] = useState(null);
   const [cargando, setCargando] = useState(true);
   const usuario = "agricultor";
 
@@ -31,6 +32,19 @@ const Inicio = () => {
         const dataPropiedades = await resPropiedades.json();
         setPropiedades(dataPropiedades);
 
+        // === NUEVO BLOQUE: Seleccionar propiedad con ubicación ===
+        const propiedadesConUbicacion = dataPropiedades.filter(
+          (p) => p.coordenadas || p.direccion
+        );
+
+        if (propiedadesConUbicacion.length > 0) {
+          const aleatoria =
+            propiedadesConUbicacion[
+              Math.floor(Math.random() * propiedadesConUbicacion.length)
+            ];
+          setPropiedadParaTiempo(aleatoria);
+        }
+
         const temporada = 2025;
         const resCosechas = await fetch(
           `http://localhost:5000/mis-cosechas?temporada=${temporada}`,
@@ -53,9 +67,6 @@ const Inicio = () => {
         });
 
         cosechasConNombre.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-        // PARA LIMITAR A UN CIERTO NUM DE COSECHAS:
-        // const ultimasTres = cosechasConNombre.slice(0, 3);
         setCosechas(cosechasConNombre);
       } catch (error) {
         console.error("Error al obtener datos:", error);
@@ -79,6 +90,9 @@ const Inicio = () => {
       <div className="grid-columnas">
         <div className="columna-inicio">
           <div className="cuadro-inicio">
+            <h2 className="titulos-inicio">
+              Últimas cosechas de esta temporada
+            </h2>
             <div className="cosechas-lista">
               {cosechas.length === 0 ? (
                 <p>No hay cosechas recientes.</p>
@@ -102,7 +116,19 @@ const Inicio = () => {
               <DatosCalculadosCosechas modo="cuadricula" />
             </div>
           </div>
-          <div className="cuadro-inicio"> <PanelTiempo/> </div>
+
+          <div className="cuadro-tiempo-inicio">
+            <div className="cont-tiempo-inicio">
+              <h2 className="titulos-inicio">
+                Tiempo en{" "}
+                {propiedadParaTiempo?.nombre || "ubicación desconocida"}
+              </h2>
+              <PanelTiempo
+                direccion={propiedadParaTiempo?.direccion}
+                coordenadas={propiedadParaTiempo?.coordenadas}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
