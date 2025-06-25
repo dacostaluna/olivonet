@@ -26,6 +26,8 @@ app.use('/', userRoutes);
 
 app.use("/api/clima", require("./routes/climaRoutes"));
 
+app.use("/api/aceite", require("./routes/aceiteRoutes"));
+
 
 // Puerto
 const PORT = process.env.PORT || 5000;

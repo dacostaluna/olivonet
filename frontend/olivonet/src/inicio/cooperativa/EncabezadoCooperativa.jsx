@@ -66,7 +66,7 @@ const EncabezadoCooperativa = ({ tipoUsuario, style = {}, className = "" }) => {
     fetchDatos();
   }, [tipoUsuario]);
 
-  if (!datos) return <p>Cargando {tipoUsuario}...</p>;
+  if (!datos) return <p>Cargando cooperativa...</p>;
 
   return (
     <div

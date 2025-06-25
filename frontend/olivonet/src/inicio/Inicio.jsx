@@ -3,6 +3,8 @@ import "./Inicio.css";
 import TarjetaCosecha from "../cosechas/TarjetaCosecha";
 import DatosCalculadosCosechas from "../cooperativaAgr/DatosCalculadosCosechas";
 import PanelTiempo from "../propiedades/tiempo/PanelTiempo";
+import PreciosAceite from "../aceite/PreciosAceite";
+import Espacio from "../extra/Espacio";
 
 const Inicio = () => {
   const [nombre, setNombre] = useState("");
@@ -93,6 +95,7 @@ const Inicio = () => {
             <h2 className="titulos-inicio">
               Últimas cosechas de esta temporada
             </h2>
+            <Espacio altura="0.4rem" />
             <div className="cosechas-lista">
               {cosechas.length === 0 ? (
                 <p>No hay cosechas recientes.</p>
@@ -107,7 +110,10 @@ const Inicio = () => {
               )}
             </div>
           </div>
-          <div className="cuadro-inicio">Componente B (aquí abajo)</div>
+          <div className="cuadro-inicio">
+            <h2 className="titulos-inicio">Precios aceite de oliva</h2>
+            <PreciosAceite />
+          </div>
         </div>
 
         <div className="columna-inicio">
@@ -123,6 +129,7 @@ const Inicio = () => {
                 Tiempo en{" "}
                 {propiedadParaTiempo?.nombre || "ubicación desconocida"}
               </h2>
+              <Espacio altura="1rem" />
               <PanelTiempo
                 direccion={propiedadParaTiempo?.direccion}
                 coordenadas={propiedadParaTiempo?.coordenadas}
