@@ -17,7 +17,7 @@
   max-width: 1000px;
   max-height: 90vh;
   overflow-y: auto;
-  overflow-x: hidden; /* Sin scroll horizontal */
+  overflow-x: hidden;
   position: relative;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   animation: fadeIn 0.3s ease forwards;
@@ -59,27 +59,26 @@
   min-width: 300px;
 }
 
-/* Ajustes para que las subcolumnas estén alineadas y no hagan scroll horizontal */
 
 .olivos-superficie-contenedor,
 .variedad-edad-contenedor {
   display: flex;
   gap: 1rem;
   align-items: flex-end;
-  flex-wrap: nowrap; /* NO hacer wrap, siempre en línea */
+  flex-wrap: nowrap;
 }
 
 .olivos-superficie-contenedor > *,
 .variedad-edad-contenedor > * {
-  flex: 1 1 50%;  /* Cada input ocupa la mitad del espacio */
-  min-width: 0;   /* Evita overflow horizontal */
+  flex: 1 1 50%;
+  min-width: 0;
 }
 
 .riego-contenedor {
   display: flex;
   gap: 1rem;
   align-items: flex-end;
-  flex-wrap: wrap; /* Este puede hacer wrap */
+  flex-wrap: wrap;
 }
 
 .modal-crearprop-confirmar {

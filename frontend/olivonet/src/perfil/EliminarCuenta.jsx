@@ -15,7 +15,7 @@ const EliminarCuenta = () => {
       });
 
       alert("Cuenta eliminada correctamente.");
-      localStorage.removeItem("token"); // o sessionStorage.removeItem("token");
+      localStorage.removeItem("token");
       window.location.reload();
 
     } catch (error) {

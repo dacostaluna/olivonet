@@ -1,11 +1,8 @@
-// controllers/climaController.js
 const axios = require("axios");
 
-// Obtener clima actual, usa query params: ?direccion=... o ?coordenadas=lat,lon
 const obtenerClimaActual = async (req, res) => {
   let { direccion, coordenadas } = req.query;
 
-  // Manejo para strings "null", "undefined" o vacío
   if (!direccion || direccion.toLowerCase() === "null" || direccion.toLowerCase() === "undefined") {
     direccion = null;
   }

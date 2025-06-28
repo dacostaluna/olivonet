@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-// import "./RegistroCooperativaModal.css";
 import Formulario from "../extra/Formulario";
 import Espacio from "../extra/Espacio";
 

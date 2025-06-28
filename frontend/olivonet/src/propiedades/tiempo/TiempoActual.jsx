@@ -37,7 +37,6 @@ const TiempoActual = ({ direccion, coordenadas, ruta, dia }) => {
     setError(false);
 
     
-    // Construir URL con query params según los props
     let url = `${BASE_URL}/${ruta}`;
     const params = new URLSearchParams();
 

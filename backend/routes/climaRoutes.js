@@ -1,4 +1,3 @@
-// routes/climaRoutes.js
 const express = require("express");
 const router = express.Router();
 const { obtenerClimaActual, obtenerClimaPorDia } = require("../controllers/climaController");

@@ -34,7 +34,6 @@ const Inicio = () => {
         const dataPropiedades = await resPropiedades.json();
         setPropiedades(dataPropiedades);
 
-        // === NUEVO BLOQUE: Seleccionar propiedad con ubicación ===
         const propiedadesConUbicacion = dataPropiedades.filter(
           (p) => p.coordenadas || p.direccion
         );

@@ -37,8 +37,6 @@
   flex: 1;
 }
 
-
-
 .separador-horizontal {
   border: none;
   height: 1px;
@@ -53,8 +51,6 @@
   overflow-y: auto;
 }
 
-/* Botones de abajo */
-
 .menu-abajo {
   display: flex;
   justify-content: space-evenly;
@@ -64,7 +60,7 @@
   width: 100%;
   padding: 10px 0;
   background-color: var(--color-fondo-menu);
-  border-top: 1px solid var(--color-borde-menu); /* Se puede eliminar */
+  border-top: 1px solid var(--color-borde-menu);
 }
 
 .contenedor-boton-cerrar-sesion-agricultor{
@@ -144,7 +140,6 @@
 .icono-flecha {
   height: 28px;
   width: 28px;
-  /*filter: invert(43%) sepia(9%) saturate(4368%) hue-rotate(37deg) brightness(87%) contrast(79%);*/
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
   display: block;
     transition:

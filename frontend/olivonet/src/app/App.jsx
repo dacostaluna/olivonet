@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -13,6 +12,7 @@ import Propiedades from "../propiedades/Propiedades.jsx";
 import Propiedad from "../propiedades/Propiedad.jsx";
 import Cooperativa from "../cooperativaAgr/Cooperativa.jsx";
 import "./App.css";
+import ChatBotIA from "../ia/ChatBotIA.jsx";
 
 const AppLayout = () => {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -47,6 +47,7 @@ const AppLayout = () => {
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/cooperativa" element={<Cooperativa />} />
+          <Route path="/chat" element={<ChatBotIA />} />
           <Route
             path="/propiedades"
             element={

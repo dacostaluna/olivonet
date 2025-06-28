@@ -10,12 +10,12 @@ const getColorFromTemperature = (temp) => {
   const clamped = Math.max(0, Math.min(45, temp));
   const percent = clamped / 45;
 
-  if (percent < 0.2) return "#2b2bff"; // azul oscuro
-  if (percent < 0.35) return "#0080ff"; // azul claro
-  if (percent < 0.5) return "#00cc66"; // verde
-  if (percent < 0.7) return "#ffcc00"; // amarillo
-  if (percent < 0.85) return "#ff6600"; // naranja
-  return "#cc0000"; // rojo oscuro
+  if (percent < 0.2) return "#2b2bff";
+  if (percent < 0.35) return "#0080ff";
+  if (percent < 0.5) return "#00cc66";
+  if (percent < 0.7) return "#ffcc00";
+  if (percent < 0.85) return "#ff6600";
+  return "#cc0000";
 };
 
 const Tiempo = ({ direccion, coordenadas, ruta = "actual", dia }) => {
@@ -35,7 +35,6 @@ const Tiempo = ({ direccion, coordenadas, ruta = "actual", dia }) => {
     setLoading(true);
     setError(false);
 
-    // Construir URL con query params según los props
     let url = `${BASE_URL}/${ruta}`;
     const params = new URLSearchParams();
 
@@ -90,7 +89,6 @@ const Tiempo = ({ direccion, coordenadas, ruta = "actual", dia }) => {
     </div>
     );
 
-  // Si es pronóstico, asumo que datos es un array de días; aquí mostramos el primero o el día que se quiera
   const info = ruta === "pronostico" ? datos[0] || {} : datos;
 
   const colorTemp = getColorFromTemperature(info.temperatura || info.temperatura_max);

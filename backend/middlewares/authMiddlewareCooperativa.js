@@ -16,7 +16,7 @@ const authMiddlewareCooperativa = (req, res, next) => {
       return res.status(403).json({ message: "Acceso restringido a cooperativas" });
     }
 
-    req.cooperativaId = decoded.id; // Por si se necesita usar en controladores
+    req.cooperativaId = decoded.id;
     next();
   } catch (error) {
     return res.status(401).json({ message: "Token inválido" });

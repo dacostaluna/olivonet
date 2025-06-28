@@ -18,10 +18,6 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* -----------------------------------
-   Los fondos (mitades) sin z-index explícito,
-   para que el ::before no los tape por delante.
-   ----------------------------------- */
 .cuadro-arriba {
   height: 50%;
   background-color: #f0f0f0;
@@ -35,10 +31,10 @@
   font-weight: 700;
   margin-left: 1rem;
 
-  white-space: nowrap;         /* Evita saltos de línea */
-  overflow: hidden;            /* Oculta el desbordamiento */
-  text-overflow: ellipsis;     /* Añade los puntos suspensivos */
-  max-width: 100%;             /* Opcional: asegura que no crezca de más */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 
@@ -53,17 +49,13 @@
 
 .cuadro-abajo p:last-child {
   display: -webkit-box;
-  -webkit-line-clamp: 2;         /* Máximo de líneas visibles */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 
-
-/* -----------------------------------
-   Texto: z-index alto para quedar siempre por encima del ::before
-   ----------------------------------- */
 .cuadro-arriba h2,
 .cuadro-abajo p {
   position: relative;
@@ -84,10 +76,7 @@
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
-/* -----------------------------------
-   Pseudo-elemento con z-index muy bajo (0),
-   para que “llene” el fondo sin tapar al texto (z-index 2).
-   ----------------------------------- */
+
 .cuadro-propiedad::before {
   content: "";
   position: absolute;
@@ -100,7 +89,7 @@
   transform: translate(-50%, -50%) scale(0);
   transform-origin: center center;
   transition: transform 0.5s ease;
-  z-index: 0; /* por debajo de textos (z-index:2) */
+  z-index: 0;
   pointer-events: none;
 }
 

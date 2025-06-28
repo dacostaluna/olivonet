@@ -1,4 +1,3 @@
-// Cooperativa.jsx
 import React from "react";
 import EncabezadoCooperativa from "../inicio/cooperativa/EncabezadoCooperativa";
 import CuadroCosechas from "../cosechas/CuadroCosechas.jsx";

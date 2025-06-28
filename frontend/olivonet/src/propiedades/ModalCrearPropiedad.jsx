@@ -5,7 +5,6 @@ import Espacio from "../extra/Espacio";
 import Formulario from "../extra/Formulario";
 import "./ModalCrearPropiedad.css";
 
-// Convierte un string a un número hash
 const hashStringToNumber = (str) => {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
@@ -23,13 +22,13 @@ const generarColorAleatorio = (texto) => {
     return Math.abs(hash);
   };
 
-  if (!texto) return "#789048"; // fallback por si algo va mal
+  if (!texto) return "#789048";
 
   const hash = hashStringToNumber(texto);
 
-  const hue = hash % 360; // 0 a 359 → todos los colores posibles
-  const saturation = 50 + (hash % 30); // 50% a 80% de saturación (bonito)
-  const lightness = 45 + ((hash >> 3) % 20); // 45% a 65% de luminosidad
+  const hue = hash % 360;
+  const saturation = 50 + (hash % 30);
+  const lightness = 45 + ((hash >> 3) % 20);
 
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };
@@ -61,7 +60,7 @@ const ModalCrearPropiedad = ({ onCerrar, onCrearExito }) => {
       [campo]: value,
     }));
 
-    setMensaje(null); // limpiar mensaje al cambiar
+    setMensaje(null);
   };
 
   const handleSubmit = async (e) => {

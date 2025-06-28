@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 export function useTokenMonitor() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [expired, setExpired] = useState(false);
-  const [userType, setUserType] = useState(null); // agricultor o cooperativa
+  const [userType, setUserType] = useState(null);
 
   useEffect(() => {
     if (!token) {
@@ -23,8 +23,6 @@ export function useTokenMonitor() {
           setExpired(false);
         }
 
-        // Verificamos el tipo de usuario según algún campo en el payload
-        // Asegúrate de que tu backend lo añade al firmar el token
         if (decoded.tipo === "agricultor" || decoded.tipo === "cooperativa") {
           setUserType(decoded.tipo);
         } else {

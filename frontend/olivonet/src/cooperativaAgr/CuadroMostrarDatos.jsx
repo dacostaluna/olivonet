@@ -14,7 +14,6 @@ const CuadroMostrarDatos = ({ valor = 0, medida = "", texto = "" }) => {
 
     let contador = 0;
 
-    // Calcula incremento en función de si el valor tiene decimales
     const incremento = esEntero
       ? Math.ceil(valorFinal / pasos) || 1
       : valorFinal / pasos;

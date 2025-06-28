@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 const upload = require('../middlewares/multer');
 
 
-//router.use(authMiddleware);
+// router.use(authMiddleware);
 
 router.get('/mi-perfil', authMiddleware, obtenerUsuario);
 

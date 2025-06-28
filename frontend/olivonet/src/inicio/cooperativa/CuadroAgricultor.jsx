@@ -12,7 +12,7 @@ const CuadroAgricultor = ({ agricultor, onDesasociar }) => {
     username,
     fechaNacimiento,
     fotoPerfil,
-    id, // importante tener algún identificador para las rutas
+    id,
   } = agricultor;
 
   const navigate = useNavigate();

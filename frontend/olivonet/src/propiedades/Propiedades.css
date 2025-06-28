@@ -76,7 +76,7 @@
 
 .circulo-mas {
   position: absolute;
-  right: 0px; /* Ajusta según lo lejos que lo quieras */
+  right: 0px;
   top: 50%;
   transform: translateY(-50%);
   background-color: var(--color-terciario);
@@ -116,7 +116,7 @@
 }
 
 .boton-flotante:hover {
-  background-color: var(--color-primario-hover); /* Puedes ajustar este tono si quieres */
+  background-color: var(--color-primario-hover);
   transform: translateX(-50%) scale(1.15);
 }
 

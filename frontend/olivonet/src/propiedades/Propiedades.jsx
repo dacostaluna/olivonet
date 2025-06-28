@@ -47,7 +47,6 @@ const Propiedades = ({ seleccionarPropiedad }) => {
     setMensaje(null);
   };
 
-  // Esta función la pasamos al modal para que avise que se creó una propiedad y recargamos lista
   const onCrearExito = () => {
     fetchPropiedades();
   };

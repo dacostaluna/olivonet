@@ -3,6 +3,7 @@ import axios from "axios";
 import "./RegistroModal.css";
 import Formulario from "../extra/Formulario";
 import Espacio from "../extra/Espacio";
+import Mensaje from "../extra/Mensaje";
 
 const RegistroModal = ({ visible, onClose }) => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,6 @@ const RegistroModal = ({ visible, onClose }) => {
   const [success, setSuccess] = useState("");
   const [cerrando, setCerrando] = useState(false);
 
-
   if (!visible) return null;
 
   const handleChange = (field) => (e) => {
@@ -30,11 +30,10 @@ const RegistroModal = ({ visible, onClose }) => {
   const cerrarModal = () => {
     setCerrando(true);
     setTimeout(() => {
-        setCerrando(false);
-        onClose(); // desmonta el modal completamente
-    }, 300); // duración de la animación
-    };
-
+      setCerrando(false);
+      onClose();
+    }, 300);
+  };
 
   const handleRegistro = async () => {
     const { nombre, apellidos, correo, dni, username, password, repeatPassword, fechaNacimiento } = formData;
@@ -90,13 +89,14 @@ const RegistroModal = ({ visible, onClose }) => {
             <Formulario texto="Fecha de Nacimiento" type="date" value={formData.fechaNacimiento} onChange={handleChange("fechaNacimiento")} />
           </div>
         </div>
-        <div className={`mensaje-feedback ${error ? 'error' : success ? 'success' : ''}`}>
-            {error || success || "\u00A0"}
-        </div>
+
         <Espacio />
         <div className="boton-centro">
           <button className="boton-login" onClick={handleRegistro}>Crear Cuenta</button>
         </div>
+        <Espacio altura="1vw"/>
+        {error && <Mensaje tipo="error" texto={error} />}
+        {success && <Mensaje tipo="exito" texto={success} />}
       </div>
     </div>
   );

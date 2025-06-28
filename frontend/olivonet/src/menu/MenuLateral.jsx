@@ -63,10 +63,10 @@ const MenuLateral = ({ setSeccionActiva, setMenuAbierto }) => {
             onClick={() => manejarClick("cooperativa")}
           />
           <BotonMenu
-            texto="Configuración"
+            texto="OliBot"
             icono="https://cdn-icons-png.flaticon.com/512/126/126472.png"
-            activo={activo === "configuracion"}
-            onClick={() => manejarClick("configuracion")}
+            activo={activo === "chat"}
+            onClick={() => manejarClick("chat")}
           />
           <BotonMenu
             texto="Perfil"

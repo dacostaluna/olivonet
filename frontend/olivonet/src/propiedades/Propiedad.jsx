@@ -53,7 +53,6 @@ const Propiedad = ({ idPropiedad, volver }) => {
     fetchPropiedad();
   }, [idPropiedad]);
 
-  // Función para comparar formData y propiedad y detectar si hay cambios reales
   const hayCambiosReales = () => {
     if (!formData || !propiedad) return false;
     return (
@@ -88,9 +87,8 @@ const Propiedad = ({ idPropiedad, volver }) => {
   ];
 
   const handleCampoChange = (campo, valor) => {
-    // Si es campo numérico, solo dejamos números o string vacío
     if (camposNumericos.includes(campo)) {
-      if (!/^\d*$/.test(valor)) return; // ignora si no es numérico
+      if (!/^\d*$/.test(valor)) return;
     }
 
     setFormData((prev) => {
@@ -174,7 +172,7 @@ const Propiedad = ({ idPropiedad, volver }) => {
           },
         }
       );
-      volver(); // volver a la vista anterior
+      volver();
     } catch (error) {
       console.error("Error al eliminar la propiedad:", error);
       setMensaje({ tipo: "error", texto: "Error al eliminar la propiedad." });

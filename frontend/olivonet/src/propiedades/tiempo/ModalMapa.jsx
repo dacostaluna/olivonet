@@ -14,7 +14,6 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-// Componente para centrar mapa (cuando cambiamos coords programáticamente)
 const CambiarCentro = ({ center }) => {
   const map = useMap();
   if (center) {
@@ -33,7 +32,6 @@ const MarcadorSeleccion = ({ onClickMapa, posicion }) => {
     },
   });
 
-  // Si la posición externa cambia, sincronizamos
   React.useEffect(() => {
     setPosicionInterna(posicion);
   }, [posicion]);
@@ -67,9 +65,8 @@ const ModalMapa = ({ onSeleccionarCoordenadas, coordenadasIniciales }) => {
     }
   };
 
-  // Nueva función para buscar dirección (usando API Nominatim)
   const buscarDireccion = async (e) => {
-    e.preventDefault(); // evitar submit y recarga
+    e.preventDefault();
     if (!direccion.trim()) return;
 
     try {

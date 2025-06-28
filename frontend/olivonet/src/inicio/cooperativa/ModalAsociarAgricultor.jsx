@@ -1,4 +1,3 @@
-// ModalAsociarAgricultor.jsx
 import React, { useState } from "react";
 import "./ModalAsociarAgricultor.css";
 import Formulario from "../../extra/Formulario";

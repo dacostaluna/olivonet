@@ -24,7 +24,6 @@ const TarjetaCosecha = ({ cosecha, usuario, actualizarCosechas }) => {
     }
   };
 
-  // Formatear fecha a DD/MM/YYYY
   const fecha = new Date(cosecha.fecha);
   const fechaFormateada = fecha.toLocaleDateString("es-ES");
 
@@ -32,7 +31,6 @@ return (
   <div className="tarjeta-cosecha">
     <div className="fecha-cosecha"><strong>{fechaFormateada}</strong></div>
 
-    {/* Botón flotante */}
     {usuario === "coop" && (
       <button className="boton-agricultor eliminar btn-eliminar-cosecha" onClick={handleEliminar} title="Eliminar">
         <FaTimes />

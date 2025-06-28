@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./Mensaje.css"; // Asegúrate de tener el estilo correspondiente
+import "./Mensaje.css";
 
 const Mensaje = ({ tipo, texto }) => {
   if (!texto) return null;

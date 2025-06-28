@@ -8,7 +8,7 @@ body {
 .boton-menu {
   display: flex;
   align-items: center;
-  position: relative; /* para que ::before se ubique respecto a este */
+  position: relative;
   width: 100%;
   height: 60px;
   padding: 10px 30px;
@@ -17,7 +17,7 @@ body {
   cursor: pointer;
   font-size: 18px;
   transition: background-color 0.2s;
-  overflow: hidden; /* para que el efecto no se desborde */
+  overflow: hidden;
 }
 
 .boton-menu:hover {
@@ -25,30 +25,26 @@ body {
   transition-delay: 50ms;
 }
 
-/* Línea lateral animada */
 .boton-menu::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
-  width: 0; /* empieza oculta */
+  width: 0;
   height: 100%;
   background-color:  var(--color-primario); 
   transition: width 0.2s ease-out 10ms;
 }
 
-/* Al hacer hover se expande */
 .boton-menu:hover::before {
   width: 7px;
-  transition: width 0.2s ease-out 10ms; /* Rápido al expandirse, con pequeño delay */
+  transition: width 0.2s ease-out 10ms;
 }
 
-/* Si está activo, se queda visible */
 .boton-menu.activo::before {
   width: 7px;
 }
 
-/* Icono y texto */
 .icono-boton {
   width: 24px;
   height: 24px;

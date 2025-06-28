@@ -30,7 +30,6 @@ const CambiarPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones en frontend
     if (!campos.actual || !campos.nueva || !campos.repetir) {
       setMensaje({ texto: "Todos los campos son obligatorios.", tipo: "error" });
       return;
@@ -42,7 +41,6 @@ const CambiarPassword = () => {
 
     try {
       const token = localStorage.getItem("token");
-      // Ahora enviamos actual y nueva
       const res = await axios.put(
         "http://localhost:5000/actualizarUsuario",
         { 

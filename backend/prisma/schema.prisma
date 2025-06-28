@@ -22,6 +22,7 @@ model Agricultor {
   cooperativaId     Int?
   cooperativa       Cooperativa? @relation(fields: [cooperativaId], references: [id])
 
+  mensajesIA        MensajeIA[]
   cosechas          Cosecha[]
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
@@ -94,4 +95,19 @@ model Cosecha {
 
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
+}
+
+model MensajeIA {
+  id             Int         @id @default(autoincrement())
+  contenido      String
+  rol            RolIA       // "AGRICULTOR" o "IA"
+  timestamp      DateTime    @default(now())
+
+  agricultorId   Int
+  agricultor     Agricultor  @relation(fields: [agricultorId], references: [id])
+}
+
+enum RolIA {
+  AGRICULTOR
+  IA
 }

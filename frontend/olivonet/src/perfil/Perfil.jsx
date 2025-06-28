@@ -9,7 +9,7 @@ import EliminarCuenta from "./EliminarCuenta.jsx";
 import Mensaje from "../extra/Mensaje.jsx";
 import CambiarPassword from "./CambiarPassword.jsx";
 
-import defaultProfilePic from "../assets/default_perfil.jpg"; // Imagen genérica
+import defaultProfilePic from "../assets/default_perfil.jpg";
 
 const Perfil = () => {
   const [datosOriginales, setDatosOriginales] = useState(null);

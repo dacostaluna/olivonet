@@ -128,7 +128,6 @@ const buscarAgricultor = async (req, res) => {
 
     let agricultor;
 
-    // Si el término parece un ID numérico (ajusta si usas UUIDs)
     if (!isNaN(termino)) {
       agricultor = await prisma.agricultor.findFirst({
         where: {
@@ -137,7 +136,6 @@ const buscarAgricultor = async (req, res) => {
         },
       });
     } else {
-      // Búsqueda por correo o DNI (comportamiento original)
       agricultor = await prisma.agricultor.findFirst({
         where: {
           cooperativaId: idCooperativa,
@@ -296,7 +294,7 @@ const crearCosecha = async (req, res) => {
   }
 
   try {
-    // 1. Verificar que el agricultor existe y pertenece a la cooperativa
+    // Verificar que el agricultor existe y pertenece a la cooperativa
     const agricultor = await prisma.agricultor.findUnique({
       where: { id: idAgricultor },
       select: { cooperativaId: true }
@@ -306,7 +304,7 @@ const crearCosecha = async (req, res) => {
       return res.status(403).json({ message: "No tienes acceso a este agricultor." });
     }
 
-    // 2. (Opcional) Verificar que la propiedad pertenece al agricultor
+    // Verificar que la propiedad pertenece al agricultor
     if (idPropiedad) {
       const propiedad = await prisma.propiedad.findUnique({
         where: { id: idPropiedad },

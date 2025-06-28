@@ -20,7 +20,6 @@ const DatosCalculadosCosechas = ({ modo = "fila" }) => {
 
     const fetchDatos = async () => {
       try {
-        // Obtener propiedades
         const resProp = await fetch("http://localhost:5000/mis-propiedades", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -31,7 +30,6 @@ const DatosCalculadosCosechas = ({ modo = "fila" }) => {
           0
         );
 
-        // Obtener cosechas
         const resCosechas = await fetch("http://localhost:5000/mis-cosechas", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -49,7 +47,6 @@ const DatosCalculadosCosechas = ({ modo = "fila" }) => {
           return;
         }
 
-        // Encontrar la última temporada
         const ultimaTemporada = Math.max(...cosechas.map((c) => c.temporada));
         const cosechasUltima = cosechas.filter(
           (c) => c.temporada === ultimaTemporada

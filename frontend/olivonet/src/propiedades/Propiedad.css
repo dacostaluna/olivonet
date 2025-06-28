@@ -23,8 +23,8 @@
 }
 
 .propiedad-informacion-contenedor{
-  flex: 1; /* que ocupe todo el espacio disponible */
-  min-width: 0; /* importante para evitar overflow con texto largo */
+  flex: 1;
+  min-width: 0;
   background-color: #f3f3f3af;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   padding: 20px;
@@ -57,15 +57,15 @@
   align-items: center;
 
   gap: 30px;
-  flex-grow: 1;            /* Este crece si hace falta */
-  justify-content: space-between;  /* Esto coloca uno a la izquierda y otro a la derecha */
+  flex-grow: 1;
+  justify-content: space-between;
 }
 
 .panel-tiempo-propiedad{
   width: auto;
   position: sticky;
-  align-self: flex-start; /* para que quede alineado arriba */
-  flex-shrink: 0; /* que no se reduzca */
+  align-self: flex-start;
+  flex-shrink: 0;
 }
 
 .detalle-propiedad {
@@ -119,7 +119,7 @@ input[disabled] {
 }
 
 .detalle-propiedad select:hover {
-  border-color: var(--color-primario); /* color al pasar el mouse */
+  border-color: var(--color-primario);
 }
 
 .detalle-propiedad label {

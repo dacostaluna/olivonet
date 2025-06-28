@@ -1,4 +1,3 @@
-// Formulario.jsx
 import React from 'react';
 import './Formulario.css';
 

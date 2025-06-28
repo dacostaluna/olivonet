@@ -31,7 +31,6 @@
   transition: filter 0.2s ease-in-out;
 }
 
-/* Botón específico de cerrar sesión */
 .boton-cerrar-sesion-coop.cerrar-sesion {
   background-color: var(--color-transparente);
 }
@@ -41,7 +40,7 @@
 }
 
 .boton-cerrar-sesion-coop.cerrar-sesion:hover img {
-  filter: brightness(0) invert(1); /* convierte la imagen a blanco */
+  filter: brightness(0) invert(1);
 }
 
 .contenedor-cerrar-sesion-coop {
@@ -74,7 +73,7 @@
   width: 100%;
   min-height: 100px;
   display: flex;
-  justify-content: center; /* mantiene el encabezado centrado */
+  justify-content: center;
   align-items: center;
 }
 

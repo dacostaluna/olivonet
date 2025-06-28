@@ -12,7 +12,6 @@ const {
 } = require('../controllers/adminController');
 const verifyAdminToken = require('../middlewares/verifyAdminToken');
 
-// Middleware que permite solo admins
 const soloAdmin = (req, res, next) => {
   if (req.tipo !== 'admin') {
     return res.status(403).json({ message: 'Acceso denegado: solo administradores' });
@@ -20,7 +19,6 @@ const soloAdmin = (req, res, next) => {
   next();
 };
 
-// Rutas para administradores
 router.get('/agricultores', verifyAdminToken, soloAdmin, obtenerAgricultores);
 router.get('/agricultores/:id', verifyAdminToken, soloAdmin, obtenerAgricultorPorId);
 router.post('/agricultores', verifyAdminToken, soloAdmin, crearAgricultor);

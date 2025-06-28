@@ -52,8 +52,8 @@ const actualizarPerfil = async (req, res) => {
     nombre,
     apellidos,
     username,
-    actual,    // contraseña actual
-    nueva,     // nueva contraseña
+    actual,
+    nueva,
     fechaNacimiento,
     correo
   } = req.body;
@@ -62,7 +62,7 @@ const actualizarPerfil = async (req, res) => {
     const user = await prisma.agricultor.findUnique({ where: { id: userId } });
     if (!user) return res.status(404).json({ message: 'Usuario no encontrado.' });
 
-    // Preparamos los datos a actualizar
+    // Datos a actualizar
     const datosActualizados = {};
     if (nombre) datosActualizados.nombre = nombre;
     if (apellidos) datosActualizados.apellidos = apellidos;
@@ -72,25 +72,23 @@ const actualizarPerfil = async (req, res) => {
 
     // Si nos envían un cambio de contraseña:
     if (actual && nueva) {
-      // 1) Comprobar que la contraseña actual coincide
+      // Comprobar que la contraseña actual coincide
       const coincide = await bcrypt.compare(actual, user.password);
       if (!coincide) {
         return res.status(400).json({ message: 'Contraseña actual incorrecta.' });
       }
 
-      // 2) Comprobar que la nueva no sea igual a la actual
+      // Comprobar que la nueva no sea igual a la actual
       const esIgual = await bcrypt.compare(nueva, user.password);
       if (esIgual) {
         return res.status(400).json({ message: 'La nueva contraseña no puede ser igual a la anterior.' });
       }
 
-      // 3) Hash y asignación al objeto
+      // Hash
       const hashed = await bcrypt.hash(nueva, 10);
       console.log('Datos a actualizar:', datosActualizados);
       datosActualizados.password = hashed;
     }
-
-    // Si no envían ambos campos (actual + nueva), no se toca la password
 
     const usuarioActualizado = await prisma.agricultor.update({
       where: { id: userId },
@@ -387,7 +385,7 @@ const obtenerCosechas = async (req, res) => {
       });
 
       if (!ultimaCosecha) {
-        return res.status(200).json([]); // sin cosechas
+        return res.status(200).json([]);
       }
 
       temporada = ultimaCosecha.temporada;

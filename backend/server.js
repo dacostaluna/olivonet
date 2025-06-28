@@ -28,6 +28,8 @@ app.use("/api/clima", require("./routes/climaRoutes"));
 
 app.use("/api/aceite", require("./routes/aceiteRoutes"));
 
+app.use("/chat", require("./routes/iaRoutes"));
+
 
 // Puerto
 const PORT = process.env.PORT || 5000;

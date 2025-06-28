@@ -11,7 +11,7 @@ import videoFondo from "../assets/video_fondo.mp4";
 import RegistroModal from "../registro/RegistroModal";
 import Mensaje from "../extra/Mensaje";
 
-import LoginCooperativa from "./LoginCooperativa"; // IMPORTAMOS LoginCooperativa
+import LoginCooperativa from "./LoginCooperativa";
 
 
 const Login = ({ onLogin }) => {
@@ -20,10 +20,9 @@ const Login = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
   const [mensaje, setMensaje] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [modoCooperativa, setModoCooperativa] = useState(false); // NUEVO estado para alternar login
+  const [modoCooperativa, setModoCooperativa] = useState(false);
   const navigate = useNavigate();
 
-  // Función de login para agricultor
   const handleLogin = async () => {
     if (!correo.trim() || !password.trim()) {
       setMensaje({ texto: "Por favor, introduce correo y contraseña", tipo: "error" });
@@ -113,7 +112,6 @@ const Login = ({ onLogin }) => {
 
       <RegistroModal visible={mostrarModal} onClose={() => setMostrarModal(false)} />
 
-      {/* BOTÓN FLOTANTE PARA CAMBIAR LOGIN */}
       <button
         className="boton-flotante-login"
         onClick={() => setModoCooperativa(!modoCooperativa)}
