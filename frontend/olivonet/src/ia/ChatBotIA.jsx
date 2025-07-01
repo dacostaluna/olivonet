@@ -1,19 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react';
-import ChatMessage from './ChatMessage';
-import './ChatbotIA.css';
-import fotoDefault from '../assets/default_perfil.jpg';
-import iaImagen from '../assets/ia-imagen.jpg';
+import React, { useEffect, useState, useRef } from "react";
+import ChatMessage from "./ChatMessage";
+import "./ChatbotIA.css";
+import fotoDefault from "../assets/default_perfil.jpg";
+import iaImagen from "../assets/ia-imagen.png";
+import { FaSpinner } from "react-icons/fa";
 
-const LOADING_ANIMATION_URL = 'https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json';
+const API_BASE = "http://localhost:5000/chat";
+const PERFIL_API = "http://localhost:5000/mi-perfil";
 
-const API_BASE = 'http://localhost:5000/chat';
-const PERFIL_API = 'http://localhost:5000/mi-perfil';
-
-function ChatbotIA() {
+function ChatbotIA({ menuAbierto }) {
   const [messages, setMessages] = useState([]);
-  const [inputMsg, setInputMsg] = useState('');
+  const [inputMsg, setInputMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const [agricultorPerfil, setAgricultorPerfil] = useState({ nombre: '', fotoUrl: '' });
+  const [agricultorPerfil, setAgricultorPerfil] = useState({
+    nombre: "",
+    fotoUrl: "",
+  });
 
   const messagesEndRef = useRef(null);
 
@@ -25,9 +27,9 @@ function ChatbotIA() {
   const fetchPerfil = async () => {
     try {
       const res = await fetch(PERFIL_API, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      if (!res.ok) throw new Error('Error cargando perfil');
+      if (!res.ok) throw new Error("Error cargando perfil");
       const perfil = await res.json();
 
       setAgricultorPerfil({
@@ -37,8 +39,8 @@ function ChatbotIA() {
     } catch (err) {
       console.error(err);
       setAgricultorPerfil({
-        nombre: 'Agricultor',
-        fotoUrl: fotoDefault
+        nombre: "Agricultor",
+        fotoUrl: fotoDefault,
       });
     }
   };
@@ -48,10 +50,10 @@ function ChatbotIA() {
       setLoading(true);
       const res = await fetch(`${API_BASE}/historial-mensajes`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        }
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
-      if (!res.ok) throw new Error('Error cargando mensajes');
+      if (!res.ok) throw new Error("Error cargando mensajes");
       const data = await res.json();
       setMessages(data);
       scrollToBottom();
@@ -62,8 +64,24 @@ function ChatbotIA() {
     }
   };
 
+  const nuevaConversacion = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/borrar-conversacion`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (!res.ok) throw new Error("Error al iniciar nueva conversación");
+
+      setMessages([]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const sendMessage = async (e) => {
@@ -73,31 +91,30 @@ function ChatbotIA() {
     try {
       setLoading(true);
 
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
-        { id: Date.now(), contenido: inputMsg, rol: 'AGRICULTOR' }
+        { id: Date.now(), contenido: inputMsg, rol: "AGRICULTOR" },
       ]);
       scrollToBottom();
 
       const res = await fetch(`${API_BASE}/mensaje`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({ contenido: inputMsg }),
       });
 
-      if (!res.ok) throw new Error('Error enviando mensaje');
+      if (!res.ok) throw new Error("Error enviando mensaje");
       const responseData = await res.json();
 
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 1, contenido: responseData.respuesta, rol: 'IA' }
+        { id: Date.now() + 1, contenido: responseData.respuesta, rol: "IA" },
       ]);
-      setInputMsg('');
+      setInputMsg("");
       scrollToBottom();
-
     } catch (err) {
       console.error(err);
     } finally {
@@ -106,49 +123,76 @@ function ChatbotIA() {
   };
 
   return (
-    <div className="chatbot-container">
-      <div className="chatbot-header">Chat con IA</div>
-
-      <div className="chatbot-messages">
-        {messages.map(msg => (
-          <ChatMessage
-            key={msg.id}
-            rol={msg.rol}
-            contenido={msg.contenido}
-            nombre={msg.rol === 'IA' ? 'IA' : agricultorPerfil.nombre}
-            fotoUrl={msg.rol === 'IA'
-              ? iaImagen
-              : agricultorPerfil.fotoUrl
-            }
-          />
-        ))}
-
-        {loading && (
-          <ChatMessage
-            rol="IA"
-            contenido={
-              <div className="loading-animation">
-                <img src={LOADING_ANIMATION_URL} alt="Cargando..." style={{ width: 50, height: 50 }} />
-              </div>
-            }
-            nombre="OliBot"
-            fotoUrl={iaImagen}
-          />
-        )}
-
-        <div ref={messagesEndRef} />
+    <div className="chatbot-wrapper">
+      <div className="chatbot-header">
+        Chatea con OliBot, tu asistente de IA
       </div>
 
-      <form className="chatbot-form" onSubmit={sendMessage}>
+      <div className="chatbot-container">
+        <div className="chatbot-messages">
+          {messages.length === 0 && !loading && (
+            <div className="chatbot-empty">
+              <h2>¡Bienvenido a OliBot!</h2>
+              <p>Puedes preguntarme cosas como:</p>
+              <ul>
+                <li>¿Cuál será el clima mañana?</li>
+                <li>¿Qué plagas afectan al olivo en verano?</li>
+                <li>Recomiéndame fertilizantes para olivos.</li>
+              </ul>
+            </div>
+          )}
+
+          {messages.map((msg) => (
+            <ChatMessage
+              key={msg.id}
+              rol={msg.rol}
+              contenido={msg.contenido}
+              nombre={msg.rol === "IA" ? "OliBot" : agricultorPerfil.nombre}
+              fotoUrl={msg.rol === "IA" ? iaImagen : agricultorPerfil.fotoUrl}
+            />
+          ))}
+
+          {loading && (
+            <ChatMessage
+              rol="IA"
+              contenido=""
+              nombre="OliBot"
+              fotoUrl={iaImagen}
+            >
+              <div className="loading-spinner">
+                <FaSpinner className="spinner-icon" />
+              </div>
+            </ChatMessage>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
+
+      <form
+        className={`chatbot-form ${menuAbierto ? "con-menu" : "sin-menu"}`}
+        onSubmit={sendMessage}
+      >
+        <button
+          type="button"
+          className="chatbot-new-btn"
+          disabled={loading}
+          onClick={nuevaConversacion}
+          title="Nueva conversación"
+        >
+          +
+        </button>
         <input
           type="text"
           placeholder="Escribe tu mensaje..."
           value={inputMsg}
-          onChange={e => setInputMsg(e.target.value)}
+          onChange={(e) => setInputMsg(e.target.value)}
           className="chatbot-input"
           disabled={loading}
         />
-        <button type="submit" className="chatbot-send-btn" disabled={loading}>Enviar</button>
+        <button type="submit" className="chatbot-send-btn" disabled={loading}>
+          Enviar
+        </button>
       </form>
     </div>
   );

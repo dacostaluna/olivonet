@@ -6,7 +6,16 @@ import "./MenuLateral.css";
 import logo from "../assets/olivonet-icon.png";
 import flecha from "../assets/flecha-izquierda.png";
 import cerrar_sesion from "../assets/cerrar-sesion.png";
+
+import home from "../assets/menu/home.png";
+import chat from "../assets/menu/chat.png";
+import coop from "../assets/menu/olives.png";
+import propiedades from "../assets/menu/tree2.png";
+
+
+
 import Login from "../login/Login";
+
 
 const MenuLateral = ({ setSeccionActiva, setMenuAbierto }) => {
   const navigate = useNavigate();
@@ -46,25 +55,25 @@ const MenuLateral = ({ setSeccionActiva, setMenuAbierto }) => {
         <div className="contenedor-botones">
           <BotonMenu
             texto="Inicio"
-            icono="https://cdn-icons-png.flaticon.com/512/25/25694.png"
+            icono={home}
             activo={activo === "inicio"}
             onClick={() => manejarClick("inicio")}
           />
           <BotonMenu
             texto="Propiedades"
-            icono="https://cdn-icons-png.flaticon.com/512/747/747376.png"
+            icono={propiedades}
             activo={activo === "propiedades"}
             onClick={() => manejarClick("propiedades")}
           />
           <BotonMenu
             texto="Cooperativa"
-            icono="https://cdn-icons-png.flaticon.com/512/747/747310.png"
+            icono={coop}
             activo={activo === "cooperativa"}
             onClick={() => manejarClick("cooperativa")}
           />
           <BotonMenu
             texto="OliBot"
-            icono="https://cdn-icons-png.flaticon.com/512/126/126472.png"
+            icono={chat}
             activo={activo === "chat"}
             onClick={() => manejarClick("chat")}
           />

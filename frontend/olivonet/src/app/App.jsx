@@ -47,7 +47,7 @@ const AppLayout = () => {
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/cooperativa" element={<Cooperativa />} />
-          <Route path="/chat" element={<ChatBotIA />} />
+          <Route path="/chat" element={<ChatBotIA menuAbierto={menuAbierto} />} />
           <Route
             path="/propiedades"
             element={

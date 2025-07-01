@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-// Ruta al archivo de prompt de sistema
 const SYSTEM_PROMPT_PATH = path.join(__dirname, '..', 'system_prompt.txt');
 
 
@@ -48,30 +47,35 @@ const postChatMessage = async (req, res) => {
 
     const nombre = agricultor.nombre;
     const apellidos = agricultor.apellidos;
-    const propiedades = agricultor.propiedades.slice(0, 10); // Máximo 10 propiedades (para no emborronar el system_prompt)
+    const propiedades = agricultor.propiedades.slice(0, 10); // Máximo 10 propiedades
 
-    // 3. Obtener clima para cada propiedad con coordenadas
+    // 3. Obtener clima para cada propiedad
     const propiedadesConClima = await Promise.all(
       propiedades.map(async (prop) => {
-        if (!prop.coordenadas) return null;
+        let clima = null;
 
-        try {
-          const response = await axios.get(`http://localhost:5000/api/clima/pronostico/1?coordenadas=${encodeURIComponent(prop.coordenadas)}`);
-          return {
-            nombre: prop.nombre,
-            superficie: prop.superficie,
-            numOlivos: prop.numOlivos,
-            clima: response.data
-          };
-        } catch (err) {
-          console.warn(`Error obteniendo clima para propiedad ${prop.nombre}:`, err.message);
-          return {
-            nombre: prop.nombre,
-            superficie: prop.superficie,
-            numOlivos: prop.numOlivos,
-            clima: null
-          };
+        if (prop.coordenadas) {
+          try {
+            const response = await axios.get(`http://localhost:5000/api/clima/pronostico/1?coordenadas=${encodeURIComponent(prop.coordenadas)}`);
+            clima = response.data;
+          } catch (err) {
+            console.warn(`Error obteniendo clima para propiedad ${prop.nombre}:`, err.message);
+          }
         }
+
+        return {
+          nombre: prop.nombre,
+          superficie: prop.superficie,
+          numOlivos: prop.numOlivos,
+          descripcion: prop.descripcion,
+          direccion: prop.direccion,
+          color: prop.color,
+          tieneRiego: prop.tieneRiego,
+          numOlivosRiego: prop.numOlivosRiego,
+          variedad: prop.variedad,
+          edadOlivos: prop.edadOlivos,
+          clima
+        };
       })
     );
 
@@ -85,6 +89,13 @@ const postChatMessage = async (req, res) => {
       dynamicPrompt += `- Nombre: ${prop.nombre}\n`;
       dynamicPrompt += `- Superficie: ${prop.superficie} m²\n`;
       dynamicPrompt += `- Número de olivos: ${prop.numOlivos}\n`;
+      if (prop.descripcion) dynamicPrompt += `- Descripción: ${prop.descripcion}\n`;
+      dynamicPrompt += `- Dirección: ${prop.direccion}\n`;
+      if (prop.color) dynamicPrompt += `- Color: ${prop.color}\n`;
+      if (prop.tieneRiego !== null) dynamicPrompt += `- Tiene riego: ${prop.tieneRiego ? 'Sí' : 'No'}\n`;
+      if (prop.numOlivosRiego !== null) dynamicPrompt += `- Nº de olivos con riego: ${prop.numOlivosRiego}\n`;
+      if (prop.variedad) dynamicPrompt += `- Variedad: ${prop.variedad}\n`;
+      if (prop.edadOlivos !== null) dynamicPrompt += `- Edad de los olivos: ${prop.edadOlivos} años\n`;
 
       if (prop.clima) {
         const clima = prop.clima;
@@ -153,7 +164,24 @@ const postChatMessage = async (req, res) => {
   }
 };
 
+const deleteChatHistory = async (req, res) => {
+  try {
+    const agricultorId = req.userId;
+
+    await prisma.mensajeIA.deleteMany({
+      where: { agricultorId }
+    });
+
+    res.json({ message: 'Historial eliminado correctamente' });
+  } catch (error) {
+    console.error('Error eliminando historial:', error);
+    res.status(500).json({ message: 'Error eliminando historial' });
+  }
+};
+
+
 module.exports = {
   getChatHistory,
-  postChatMessage
+  postChatMessage,
+  deleteChatHistory
 };
