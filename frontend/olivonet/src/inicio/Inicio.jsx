@@ -85,7 +85,7 @@ const Inicio = () => {
 
   return (
     <div className="inicio-container">
-      <h2>¡Bienvenid@, {nombre}!</h2>
+      <h2 className="perfil-titulo">¡Bienvenid@, {nombre}!</h2>
       <p>Este es tu panel principal.</p>
 
       <div className="grid-columnas">

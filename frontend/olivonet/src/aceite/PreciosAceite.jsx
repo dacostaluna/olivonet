@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./PreciosAceite.css";
+import Espacio from '../extra/Espacio';
 
 const PreciosAceite = () => {
   const [precios, setPrecios] = useState(null);
@@ -38,6 +39,9 @@ const PreciosAceite = () => {
           </div>
         </div>
       )}
+      <Espacio altura="12px"/>
+      <p className="disclaimer-precio">* El punto representa los decimales</p>
+      <p className="disclaimer-precio">** Precios expresados en euros por kilogramo (€ /kg)</p>
     </div>
   );
 };
